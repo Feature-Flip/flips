@@ -45,4 +45,10 @@ public class TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel {
     @FeatureFlip
     public void featureWithSameMethodNameInDifferentClass(){
     }
+
+    @CutOffDateTimeFlipStrategy(cutoffDateTime = "2016-07-10")
+    @SpringEnvironmentPropertyFlipStrategy(property = "feature.enabled")
+    @FeatureFlip
+    public void featureWithFeatureFlipAndStrategyAnnotations(){
+    }
 }

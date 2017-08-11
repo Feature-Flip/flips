@@ -152,4 +152,12 @@ public class FeatureFlipAnnotationMetaDataStoreIntegrationTest {
 
         assertEquals(false, result);
     }
+
+    @Test
+    public void shouldReturnFeatureDisabledGivenFeatureFlipIsDisabledWithStrategyAnnotations() throws Exception {
+        Method method   = TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("featureWithFeatureFlipAndStrategyAnnotations");
+        boolean result  = featureFlipAnnotationMetaDataStore.isFeatureEnabled(method);
+
+        assertEquals(false, result);
+    }
 }
