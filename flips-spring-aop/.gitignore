@@ -2,8 +2,6 @@ logs/**
 build/**
 .gradle/**
 .idea/
-clientlink-batch/build/**
-clientlink-batch/classes/**
 classes/**
 *.iml
 target/**
