@@ -1,0 +1,139 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.flips</groupId>
+  <artifactId>flips-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <description>
+    Flips is a library for Java which helps in implementing Feature Toggles. Features could be services, behaviors, endpoints
+    can be switched ON/OFF using Flips
+  </description>
+
+  <packaging>pom</packaging>
+
+  <name>Feature Switching for Java</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <version.junit>4.12</version.junit>
+    <version.spring>4.2.3.RELEASE</version.spring>
+    <version.mockito>1.10.19</version.mockito>
+    <version.powermockito.api>1.6.4</version.powermockito.api>
+    <version.powermockito.junit4>1.6.4</version.powermockito.junit4>
+    <version.jacoco>0.7.5.201505241946</version.jacoco>
+    <version.apache.commons.lang3>3.6</version.apache.commons.lang3>
+    <version.aspectj>1.8.9</version.aspectj>
+    <version.sl4j>1.7.25</version.sl4j>
+    <version.logback>1.2.3</version.logback>
+  </properties>
+
+  <modules>
+    <module>flips-spring-core</module>
+    <module>flips-spring-aop</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${version.junit}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>${version.mockito}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-api-mockito</artifactId>
+        <version>${version.powermockito.api}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-module-junit4</artifactId>
+        <version>${version.powermockito.junit4}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${version.spring}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${version.spring}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${version.spring}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${version.sl4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${version.sl4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${version.logback}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco}</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>target/jacoco.exec</dataFile>
+              <outputDirectory>target/jacoco</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
