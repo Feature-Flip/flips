@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class FeatureFlipAnnotationMetaDataStore {
@@ -55,6 +56,11 @@ public class FeatureFlipAnnotationMetaDataStore {
 
     public int getTotalMethodsCached(){
         return methodFeatureFlipAnnotationMetaDataStore.size();
+    }
+
+    //return a copy ?
+    public Set<Method> allMethodsCached(){
+        return methodFeatureFlipAnnotationMetaDataStore.keySet();
     }
 
     private void storeMethodWithFeatureFlipAnnotationMetaData(Class<?> clazz){

@@ -4,8 +4,8 @@ import org.springframework.context.ApplicationContext;
 
 public abstract class AnnotationMetaData {
 
-    protected ApplicationContext  applicationContext;
-    protected FeatureContext      featureContext;
+    protected final ApplicationContext  applicationContext;
+    protected final FeatureContext      featureContext;
 
     protected AnnotationMetaData(ApplicationContext applicationContext, FeatureContext featureContext){
         this.applicationContext = applicationContext;
