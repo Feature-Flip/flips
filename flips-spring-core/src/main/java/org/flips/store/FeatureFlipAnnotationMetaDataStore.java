@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,16 +28,16 @@ public class FeatureFlipAnnotationMetaDataStore {
 
     private ApplicationContext                      applicationContext;
     private FeatureFlipAnnotationProcessor          featureFlipAnnotationProcessor;
-    private FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder;
+    private FeatureFlipAnnotationMetaDataBuilder    featureFlipAnnotationMetaDataBuilder;
 
     @Autowired
     public FeatureFlipAnnotationMetaDataStore(ApplicationContext                    applicationContext,
                                               FeatureFlipAnnotationProcessor        featureFlipAnnotationProcessor,
-                                              FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder) {
+                                              FeatureFlipAnnotationMetaDataBuilder  featureFlipAnnotationMetaDataBuilder) {
 
         this.applicationContext                     = applicationContext;
         this.featureFlipAnnotationProcessor         = featureFlipAnnotationProcessor;
-        this.featureFlipAnnotationMetaDataBuilder = featureFlipAnnotationMetaDataBuilder;
+        this.featureFlipAnnotationMetaDataBuilder   = featureFlipAnnotationMetaDataBuilder;
     }
 
     @PostConstruct
@@ -58,9 +59,8 @@ public class FeatureFlipAnnotationMetaDataStore {
         return methodFeatureFlipAnnotationMetaDataStore.size();
     }
 
-    //return a copy ?
     public Set<Method> allMethodsCached(){
-        return methodFeatureFlipAnnotationMetaDataStore.keySet();
+        return new HashSet<>(methodFeatureFlipAnnotationMetaDataStore.keySet());
     }
 
     private void storeMethodWithFeatureFlipAnnotationMetaData(Class<?> clazz){

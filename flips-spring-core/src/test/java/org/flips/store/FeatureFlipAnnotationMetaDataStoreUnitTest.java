@@ -50,6 +50,7 @@ public class FeatureFlipAnnotationMetaDataStoreUnitTest {
         featureFlipAnnotationMetaDataStore.buildFeatureFlipAnnotationMetaDataStore();
 
         assertEquals(0, featureFlipAnnotationMetaDataStore.getTotalMethodsCached());
+        assertEquals(0, featureFlipAnnotationMetaDataStore.allMethodsCached().size());
         verify(applicationContext).getBeansWithAnnotation(Flips.class);
         verify(featureFlipAnnotationProcessor, never()).getAnnotationMetaData(any(Method.class));
     }
@@ -91,6 +92,7 @@ public class FeatureFlipAnnotationMetaDataStoreUnitTest {
         featureFlipAnnotationMetaDataStore.buildFeatureFlipAnnotationMetaDataStore();
 
         assertEquals(1, featureFlipAnnotationMetaDataStore.getTotalMethodsCached());
+        assertEquals(1, featureFlipAnnotationMetaDataStore.allMethodsCached().size());
         verify(applicationContext).getBeansWithAnnotation(Flips.class);
         verify(featureFlipAnnotationProcessor).getAnnotationMetaData(method);
         verify(annotationMetaData).isEmpty();
