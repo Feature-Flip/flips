@@ -1,7 +1,7 @@
 package org.flips.processor;
 
 import org.flips.model.AnnotationMetaData;
-import org.flips.model.FeatureFlipAnnotationMetaDataFactory;
+import org.flips.model.FeatureFlipAnnotationMetaDataBuilder;
 import org.flips.utils.AnnotationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +16,11 @@ public class FeatureFlipAnnotationProcessor {
 
     private static final Logger logger = LoggerFactory.getLogger(FeatureFlipAnnotationProcessor.class);
 
-    private FeatureFlipAnnotationMetaDataFactory featureFlipAnnotationMetaDataFactory;
+    private FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder;
 
     @Autowired
-    public FeatureFlipAnnotationProcessor(FeatureFlipAnnotationMetaDataFactory featureFlipAnnotationMetaDataFactory) {
-        this.featureFlipAnnotationMetaDataFactory   = featureFlipAnnotationMetaDataFactory;
+    public FeatureFlipAnnotationProcessor(FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder) {
+        this.featureFlipAnnotationMetaDataBuilder = featureFlipAnnotationMetaDataBuilder;
     }
 
     public AnnotationMetaData getAnnotationMetaData(Method method){
@@ -43,6 +43,6 @@ public class FeatureFlipAnnotationProcessor {
     }
 
     private AnnotationMetaData buildFeatureFlipAnnotationMetaData(Annotation[] annotations) {
-        return featureFlipAnnotationMetaDataFactory.buildAnnotationMetaData(annotations);
+        return featureFlipAnnotationMetaDataBuilder.buildAnnotationMetaData(annotations);
     }
 }

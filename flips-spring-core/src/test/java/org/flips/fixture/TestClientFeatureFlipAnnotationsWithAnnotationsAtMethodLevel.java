@@ -4,15 +4,16 @@ import org.flips.annotation.*;
 import org.flips.annotation.strategy.CutOffDateTimeFlipStrategy;
 import org.flips.annotation.strategy.SpringEnvironmentPropertyFlipStrategy;
 import org.flips.annotation.strategy.SpringProfileFlipStrategy;
+import org.flips.annotation.strategy.NoConditionFlipStrategy;
 
 @Flips
 public class TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel {
 
-    @FeatureFlip(enabled = true)
+    @NoConditionFlipStrategy(enabled = true)
     public void enabledFeature(){
     }
 
-    @FeatureFlip
+    @NoConditionFlipStrategy
     public void disabledFeature(){
     }
 
@@ -38,17 +39,17 @@ public class TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel {
     public void springProfilesFeature(){
     }
 
-    @FeatureFlip(enabled = true)
+    @NoConditionFlipStrategy(enabled = true)
     public void noFeatureConditionsAppliedEnabledByDefault(){
     }
 
-    @FeatureFlip
+    @NoConditionFlipStrategy
     public void featureWithSameMethodNameInDifferentClass(){
     }
 
     @CutOffDateTimeFlipStrategy(cutoffDateTime = "2016-07-10")
     @SpringEnvironmentPropertyFlipStrategy(property = "feature.enabled")
-    @FeatureFlip
+    @NoConditionFlipStrategy
     public void featureWithFeatureFlipAndStrategyAnnotations(){
     }
 }

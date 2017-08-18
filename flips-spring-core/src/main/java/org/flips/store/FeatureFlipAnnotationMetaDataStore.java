@@ -3,7 +3,7 @@ package org.flips.store;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.flips.annotation.Flips;
 import org.flips.model.AnnotationMetaData;
-import org.flips.model.FeatureFlipAnnotationMetaDataFactory;
+import org.flips.model.FeatureFlipAnnotationMetaDataBuilder;
 import org.flips.processor.FeatureFlipAnnotationProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,16 +27,16 @@ public class FeatureFlipAnnotationMetaDataStore {
 
     private ApplicationContext                      applicationContext;
     private FeatureFlipAnnotationProcessor          featureFlipAnnotationProcessor;
-    private FeatureFlipAnnotationMetaDataFactory    featureFlipAnnotationMetaDataFactory;
+    private FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder;
 
     @Autowired
     public FeatureFlipAnnotationMetaDataStore(ApplicationContext                    applicationContext,
                                               FeatureFlipAnnotationProcessor        featureFlipAnnotationProcessor,
-                                              FeatureFlipAnnotationMetaDataFactory  featureFlipAnnotationMetaDataFactory) {
+                                              FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder) {
 
         this.applicationContext                     = applicationContext;
         this.featureFlipAnnotationProcessor         = featureFlipAnnotationProcessor;
-        this.featureFlipAnnotationMetaDataFactory   = featureFlipAnnotationMetaDataFactory;
+        this.featureFlipAnnotationMetaDataBuilder = featureFlipAnnotationMetaDataBuilder;
     }
 
     @PostConstruct
@@ -50,7 +50,7 @@ public class FeatureFlipAnnotationMetaDataStore {
 
     public boolean isFeatureEnabled(Method method) {
         return methodFeatureFlipAnnotationMetaDataStore
-                .getOrDefault(method, featureFlipAnnotationMetaDataFactory.getEmptyAnnotationMetaData())
+                .getOrDefault(method, featureFlipAnnotationMetaDataBuilder.getEmptyAnnotationMetaData())
                 .evaluate();
     }
 

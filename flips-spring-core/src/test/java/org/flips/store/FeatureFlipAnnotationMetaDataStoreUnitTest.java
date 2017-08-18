@@ -2,7 +2,7 @@ package org.flips.store;
 
 import org.flips.annotation.Flips;
 import org.flips.model.AnnotationMetaData;
-import org.flips.model.FeatureFlipAnnotationMetaDataFactory;
+import org.flips.model.FeatureFlipAnnotationMetaDataBuilder;
 import org.flips.processor.FeatureFlipAnnotationProcessor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +41,7 @@ public class FeatureFlipAnnotationMetaDataStoreUnitTest {
     private FeatureFlipAnnotationProcessor      featureFlipAnnotationProcessor;
 
     @Mock
-    private FeatureFlipAnnotationMetaDataFactory featureFlipAnnotationMetaDataFactory;
+    private FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder;
 
     @Test
     public void shouldNotStoreFeatureFlipAnnotationMetaDataGivenNoBeansWereAnnotatedWithFlipsAnnotation(){
@@ -139,7 +139,7 @@ public class FeatureFlipAnnotationMetaDataStoreUnitTest {
         }};
         ReflectionTestUtils.setField(featureFlipAnnotationMetaDataStore, "methodFeatureFlipAnnotationMetaDataStore", store);
 
-        when(featureFlipAnnotationMetaDataFactory.getEmptyAnnotationMetaData()).thenReturn(annotationMetaData);
+        when(featureFlipAnnotationMetaDataBuilder.getEmptyAnnotationMetaData()).thenReturn(annotationMetaData);
         when(annotationMetaData.evaluate()).thenReturn(true);
         boolean featureEnabled = featureFlipAnnotationMetaDataStore.isFeatureEnabled(method);
 

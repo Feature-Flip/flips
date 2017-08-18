@@ -1,18 +1,18 @@
 package org.flips.fixture;
 
-import org.flips.annotation.FeatureFlip;
 import org.flips.annotation.Flips;
+import org.flips.annotation.strategy.NoConditionFlipStrategy;
 import org.springframework.stereotype.Component;
 
 @Component
 @Flips
 public class TestClientFeatureFlipSpringComponent {
 
-    @FeatureFlip
+    @NoConditionFlipStrategy
     public void disabledMethod(){
     }
 
-    @FeatureFlip(enabled = true)
+    @NoConditionFlipStrategy(enabled = true)
     public boolean enabledMethod(){
         return true;
     }

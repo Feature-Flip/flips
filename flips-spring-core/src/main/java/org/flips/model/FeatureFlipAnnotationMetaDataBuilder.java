@@ -1,7 +1,5 @@
 package org.flips.model;
 
-import org.flips.annotation.FeatureFlip;
-import org.flips.utils.AnnotationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +11,16 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
 @Component
-public class FeatureFlipAnnotationMetaDataFactory {
+public class FeatureFlipAnnotationMetaDataBuilder {
 
-    private static final Logger logger = LoggerFactory.getLogger(FeatureFlipAnnotationMetaDataFactory.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(FeatureFlipAnnotationMetaDataBuilder.class);
     private static AnnotationMetaData   emptyAnnotationMetadata;
 
     private FeatureContext              featureContext;
     private ApplicationContext          applicationContext;
 
     @Autowired
-    public FeatureFlipAnnotationMetaDataFactory(ApplicationContext applicationContext, FeatureContext featureContext) {
+    public FeatureFlipAnnotationMetaDataBuilder(ApplicationContext applicationContext, FeatureContext featureContext) {
         this.applicationContext = applicationContext;
         this.featureContext     = featureContext;
     }
@@ -35,23 +32,15 @@ public class FeatureFlipAnnotationMetaDataFactory {
 
     public AnnotationMetaData buildAnnotationMetaData(Annotation[] annotations){
         logger.debug("Using FeatureFlipAnnotationMetaDataFactory to build annotation metadata for {}", Arrays.toString(annotations));
-        if ( annotations.length == 0 ) return   getEmptyAnnotationMetadata();
+        if ( annotations.length == 0 ) return   getEmptyAnnotationMetaData();
         return                                  getNonEmptyAnnotationMetaData(annotations);
     }
 
-    public AnnotationMetaData getEmptyAnnotationMetaData(){
-        return emptyAnnotationMetadata;
-    }
-
-    private AnnotationMetaData getEmptyAnnotationMetadata() {
+    public AnnotationMetaData  getEmptyAnnotationMetaData(){
         return emptyAnnotationMetadata;
     }
 
     private AnnotationMetaData getNonEmptyAnnotationMetaData(Annotation[] annotations) {
-        FeatureFlip featureFlip = AnnotationUtils.findAnnotationByTypeIfAny(annotations, FeatureFlip.class);
-        if ( featureFlip != null )
-            return new FeatureFlipAnnotationMetaData(applicationContext, featureContext, featureFlip);
-        else
-            return new FeatureFlipStrategyAnnotationMetaData(applicationContext, featureContext, annotations);
+        return new FeatureFlipStrategyAnnotationMetaData(applicationContext, featureContext, annotations);
     }
 }

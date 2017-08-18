@@ -1,10 +1,10 @@
 package org.flips.processor;
 
-import org.flips.annotation.FeatureFlip;
+import org.flips.annotation.strategy.NoConditionFlipStrategy;
+import org.flips.fixture.TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.model.AnnotationMetaData;
 import org.flips.model.FeatureContext;
-import org.flips.model.FeatureFlipAnnotationMetaDataFactory;
-import org.flips.fixture.TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel;
+import org.flips.model.FeatureFlipAnnotationMetaDataBuilder;
 import org.flips.utils.AnnotationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +18,7 @@ import org.springframework.context.ApplicationContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
@@ -37,24 +35,24 @@ public class FeatureFlipAnnotationProcessorUnitTest {
     private FeatureContext featureContext;
 
     @Mock
-    private FeatureFlipAnnotationMetaDataFactory featureFlipAnnotationMetaDataFactory;
+    private FeatureFlipAnnotationMetaDataBuilder featureFlipAnnotationMetaDataBuilder;
 
     @Test
-    public void shouldReturnAnnotationMetaDataGivenMethodContainingFeatureFlipAnnotation() {
-        Method method                           = PowerMockito.mock(Method.class);
-        FeatureFlip featureFlip                 = mock(FeatureFlip.class);
-        Annotation[] annotations                = new Annotation[]{featureFlip};
-        AnnotationMetaData annotationMetaData   = mock(AnnotationMetaData.class);
+    public void shouldReturnAnnotationMetaDataGivenMethodContainingFeatureFlipStrategyAnnotation() {
+        Method method                               = PowerMockito.mock(Method.class);
+        NoConditionFlipStrategy featureFlip     = mock(NoConditionFlipStrategy.class);
+        Annotation[] annotations                    = new Annotation[]{featureFlip};
+        AnnotationMetaData annotationMetaData       = mock(AnnotationMetaData.class);
 
         PowerMockito.mockStatic(AnnotationUtils.class);
         when(AnnotationUtils.getAnnotations(method)).thenReturn(annotations);
-        when(featureFlipAnnotationMetaDataFactory.buildAnnotationMetaData(annotations)).thenReturn(annotationMetaData);
+        when(featureFlipAnnotationMetaDataBuilder.buildAnnotationMetaData(annotations)).thenReturn(annotationMetaData);
         when(annotationMetaData.isEmpty()).thenReturn(false);
 
         AnnotationMetaData annotationMetaDataForMethod = featureFlipAnnotationProcessor.getAnnotationMetaData(method);
 
         assertNotNull("AnnotationMetaData was null after invoking featureFlipAnnotationProcessor.getAnnotationMetaData", annotationMetaDataForMethod);
-        verify(featureFlipAnnotationMetaDataFactory).buildAnnotationMetaData(annotations);
+        verify(featureFlipAnnotationMetaDataBuilder).buildAnnotationMetaData(annotations);
         verify(annotationMetaData).isEmpty();
 
         PowerMockito.verifyStatic();
@@ -67,7 +65,7 @@ public class FeatureFlipAnnotationProcessorUnitTest {
     @Test
     public void shouldReturnAnnotationMetaDataAtClassLevelGivenMethodNotContainingFeatureFlipAnnotation() {
         Method method                               = PowerMockito.method(TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class, "enabledFeature");
-        FeatureFlip featureFlip                     = mock(FeatureFlip.class);
+        NoConditionFlipStrategy featureFlip     = mock(NoConditionFlipStrategy.class);
         Annotation[] annotations                    = new Annotation[]{featureFlip};
         Annotation[] emptyAnnotations               = new Annotation[0];
         AnnotationMetaData annotationMetaData       = mock(AnnotationMetaData.class);
@@ -75,16 +73,16 @@ public class FeatureFlipAnnotationProcessorUnitTest {
 
         PowerMockito.mockStatic(AnnotationUtils.class);
         when(AnnotationUtils.getAnnotations(method)).thenReturn(emptyAnnotations);
-        when(featureFlipAnnotationMetaDataFactory.buildAnnotationMetaData(emptyAnnotations)).thenReturn(emptyAnnotationMetaData);
+        when(featureFlipAnnotationMetaDataBuilder.buildAnnotationMetaData(emptyAnnotations)).thenReturn(emptyAnnotationMetaData);
         when(emptyAnnotationMetaData.isEmpty()).thenReturn(true);
         when(AnnotationUtils.getAnnotations(method.getDeclaringClass())).thenReturn(annotations);
-        when(featureFlipAnnotationMetaDataFactory.buildAnnotationMetaData(annotations)).thenReturn(annotationMetaData);
+        when(featureFlipAnnotationMetaDataBuilder.buildAnnotationMetaData(annotations)).thenReturn(annotationMetaData);
 
         AnnotationMetaData annotationMetaDataForMethod = featureFlipAnnotationProcessor.getAnnotationMetaData(method);
 
         assertNotNull("AnnotationMetaData was null after invoking featureFlipAnnotationProcessor.getAnnotationMetaData", annotationMetaDataForMethod);
-        verify(featureFlipAnnotationMetaDataFactory).buildAnnotationMetaData(annotations);
-        verify(featureFlipAnnotationMetaDataFactory).buildAnnotationMetaData(emptyAnnotations);
+        verify(featureFlipAnnotationMetaDataBuilder).buildAnnotationMetaData(annotations);
+        verify(featureFlipAnnotationMetaDataBuilder).buildAnnotationMetaData(emptyAnnotations);
         verify(annotationMetaData, never()).isEmpty();
         verify(emptyAnnotationMetaData).isEmpty();
 
