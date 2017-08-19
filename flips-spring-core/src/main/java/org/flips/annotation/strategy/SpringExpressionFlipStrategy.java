@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.SpringExpressionFlipStrategyCondition;
+import org.flips.condition.SpringExpressionFlipStrategyCondition;
 import java.lang.annotation.*;
 
 @Target({ElementType.METHOD, ElementType.TYPE})

@@ -1,7 +1,7 @@
 package org.flips.model;
 
 import org.flips.annotation.strategy.FeatureFlipStrategy;
-import org.flips.strategy.FeatureFlipStrategyCondition;
+import org.flips.condition.FeatureFlipStrategyCondition;
 import org.flips.utils.AnnotationUtils;
 import org.flips.utils.ValidationUtils;
 import org.slf4j.Logger;

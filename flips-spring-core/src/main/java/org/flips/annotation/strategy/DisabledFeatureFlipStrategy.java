@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.DisabledFeatureFlipStrategyCondition;
+import org.flips.condition.DisabledFeatureFlipStrategyCondition;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

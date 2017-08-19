@@ -1,4 +1,4 @@
-package org.flips.strategy;
+package org.flips.condition;
 
 import org.flips.exception.SpringExpressionEvaluationFailureException;
 import org.flips.model.FeatureContext;

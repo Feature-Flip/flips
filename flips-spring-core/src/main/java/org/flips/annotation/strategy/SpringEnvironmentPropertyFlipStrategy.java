@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.SpringEnvironmentPropertyFlipStrategyCondition;
+import org.flips.condition.SpringEnvironmentPropertyFlipStrategyCondition;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.SpringProfileFlipStrategyCondition;
+import org.flips.condition.SpringProfileFlipStrategyCondition;
 
 import java.lang.annotation.*;
 

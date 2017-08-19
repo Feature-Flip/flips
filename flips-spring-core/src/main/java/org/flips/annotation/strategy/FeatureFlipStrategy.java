@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.FeatureFlipStrategyCondition;
+import org.flips.condition.FeatureFlipStrategyCondition;
 
 import java.lang.annotation.*;
 

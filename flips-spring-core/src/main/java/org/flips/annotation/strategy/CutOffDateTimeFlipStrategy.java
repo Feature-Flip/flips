@@ -1,6 +1,6 @@
 package org.flips.annotation.strategy;
 
-import org.flips.strategy.CutOffDateTimeFlipStrategyCondition;
+import org.flips.condition.CutOffDateTimeFlipStrategyCondition;
 
 import java.lang.annotation.*;
 

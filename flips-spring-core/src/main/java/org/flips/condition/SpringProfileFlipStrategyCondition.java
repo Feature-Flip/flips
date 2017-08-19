@@ -1,4 +1,4 @@
-package org.flips.strategy;
+package org.flips.condition;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.flips.model.FeatureContext;
