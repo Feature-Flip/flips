@@ -1,6 +1,6 @@
 package org.flips.processor;
 
-import org.flips.annotation.strategy.NoConditionFlipStrategy;
+import org.flips.annotation.strategy.DisabledFeatureFlipStrategy;
 import org.flips.fixture.TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.model.AnnotationMetaData;
 import org.flips.model.FeatureContext;
@@ -40,7 +40,7 @@ public class FeatureFlipAnnotationProcessorUnitTest {
     @Test
     public void shouldReturnAnnotationMetaDataGivenMethodContainingFeatureFlipStrategyAnnotation() {
         Method method                               = PowerMockito.mock(Method.class);
-        NoConditionFlipStrategy featureFlip     = mock(NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlip     = mock(DisabledFeatureFlipStrategy.class);
         Annotation[] annotations                    = new Annotation[]{featureFlip};
         AnnotationMetaData annotationMetaData       = mock(AnnotationMetaData.class);
 
@@ -64,8 +64,8 @@ public class FeatureFlipAnnotationProcessorUnitTest {
 
     @Test
     public void shouldReturnAnnotationMetaDataAtClassLevelGivenMethodNotContainingFeatureFlipAnnotation() {
-        Method method                               = PowerMockito.method(TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class, "enabledFeature");
-        NoConditionFlipStrategy featureFlip     = mock(NoConditionFlipStrategy.class);
+        Method method                               = PowerMockito.method(TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class, "disabledFeature");
+        DisabledFeatureFlipStrategy featureFlip     = mock(DisabledFeatureFlipStrategy.class);
         Annotation[] annotations                    = new Annotation[]{featureFlip};
         Annotation[] emptyAnnotations               = new Annotation[0];
         AnnotationMetaData annotationMetaData       = mock(AnnotationMetaData.class);

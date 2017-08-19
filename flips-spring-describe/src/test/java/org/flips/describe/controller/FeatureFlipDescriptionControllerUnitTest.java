@@ -1,6 +1,6 @@
 package org.flips.describe.controller;
 
-import org.flips.annotation.strategy.NoConditionFlipStrategy;
+import org.flips.annotation.strategy.DisabledFeatureFlipStrategy;
 import org.flips.store.FeatureFlipAnnotationMetaDataStore;
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -115,11 +115,10 @@ public class FeatureFlipDescriptionControllerUnitTest {
 }
 
 class TestClientFeatureFlipAnnotations{
-    @NoConditionFlipStrategy
+    @DisabledFeatureFlipStrategy
     public void disabledFeature(){
     }
 
-    @NoConditionFlipStrategy(enabled = true)
     public void enabledFeature(){
     }
 }

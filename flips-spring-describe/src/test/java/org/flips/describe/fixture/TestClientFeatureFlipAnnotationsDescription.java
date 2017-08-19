@@ -3,7 +3,7 @@ package org.flips.describe.fixture;
 
 import org.flips.annotation.Flips;
 import org.flips.annotation.strategy.CutOffDateTimeFlipStrategy;
-import org.flips.annotation.strategy.NoConditionFlipStrategy;
+import org.flips.annotation.strategy.DisabledFeatureFlipStrategy;
 import org.springframework.stereotype.Component;
 
 @Flips
@@ -14,11 +14,10 @@ public class TestClientFeatureFlipAnnotationsDescription {
     public void feature1(){
     }
 
-    @NoConditionFlipStrategy
+    @DisabledFeatureFlipStrategy
     public void feature2(){
     }
 
-    @NoConditionFlipStrategy(enabled = true)
     public void feature3(){
     }
 }

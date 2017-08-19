@@ -2,7 +2,7 @@ package org.flips.utils;
 
 import org.flips.annotation.strategy.FeatureFlipStrategy;
 import org.flips.annotation.strategy.SpringProfileFlipStrategy;
-import org.flips.annotation.strategy.NoConditionFlipStrategy;
+import org.flips.annotation.strategy.DisabledFeatureFlipStrategy;
 import org.flips.fixture.TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.model.FeatureFlipStrategyAnnotationAttributes;
 import org.junit.Test;
@@ -34,48 +34,48 @@ public class AnnotationUtilsUnitTest {
 
     @Test
     public void shouldReturnFeatureFlipStrategyAnnotationGivenAnnotationAndClassOfAnnotation(){
-        NoConditionFlipStrategy featureFlip              = mock(NoConditionFlipStrategy.class);
-        NoConditionFlipStrategy featureFlipAnnotation    = mock(NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlip              = mock(DisabledFeatureFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlipAnnotation    = mock(DisabledFeatureFlipStrategy.class);
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
-        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(featureFlip, NoConditionFlipStrategy.class)).thenReturn(featureFlipAnnotation);
+        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(featureFlip, DisabledFeatureFlipStrategy.class)).thenReturn(featureFlipAnnotation);
 
-        NoConditionFlipStrategy found = AnnotationUtils.getAnnotation(featureFlip, NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy found = AnnotationUtils.getAnnotation(featureFlip, DisabledFeatureFlipStrategy.class);
         assertNotNull(found);
 
         PowerMockito.verifyStatic();
-        org.springframework.core.annotation.AnnotationUtils.getAnnotation(featureFlip, NoConditionFlipStrategy.class);
+        org.springframework.core.annotation.AnnotationUtils.getAnnotation(featureFlip, DisabledFeatureFlipStrategy.class);
     }
 
     @Test
     public void shouldReturnAnnotationByTypeGivenArrayOfAnnotations(){
-        NoConditionFlipStrategy featureFlip              = mock(NoConditionFlipStrategy.class);
-        NoConditionFlipStrategy featureFlipAnnotation    = mock(NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlip              = mock(DisabledFeatureFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlipAnnotation    = mock(DisabledFeatureFlipStrategy.class);
         Annotation[] annotations             = {featureFlip};
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
-        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], NoConditionFlipStrategy.class)).thenReturn(featureFlipAnnotation);
+        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], DisabledFeatureFlipStrategy.class)).thenReturn(featureFlipAnnotation);
 
-        NoConditionFlipStrategy found = AnnotationUtils.findAnnotationByTypeIfAny(annotations, NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy found = AnnotationUtils.findAnnotationByTypeIfAny(annotations, DisabledFeatureFlipStrategy.class);
         assertNotNull(found);
 
         PowerMockito.verifyStatic();
-        org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], NoConditionFlipStrategy.class);
+        org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], DisabledFeatureFlipStrategy.class);
     }
 
     @Test
     public void shouldReturnNullGivenAnnotationTypeIsNotPresentInArrayOfAnnotations(){
-        NoConditionFlipStrategy featureFlip              = mock(NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy featureFlip              = mock(DisabledFeatureFlipStrategy.class);
         Annotation[] annotations             = {featureFlip};
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
-        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], NoConditionFlipStrategy.class)).thenReturn(null);
+        when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], DisabledFeatureFlipStrategy.class)).thenReturn(null);
 
-        NoConditionFlipStrategy found = AnnotationUtils.findAnnotationByTypeIfAny(annotations, NoConditionFlipStrategy.class);
+        DisabledFeatureFlipStrategy found = AnnotationUtils.findAnnotationByTypeIfAny(annotations, DisabledFeatureFlipStrategy.class);
         assertNull(found);
 
         PowerMockito.verifyStatic();
-        org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], NoConditionFlipStrategy.class);
+        org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotations[0], DisabledFeatureFlipStrategy.class);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class AnnotationUtilsUnitTest {
     @Test
     public void shouldReturnAnnotationsOnMethodGivenMethod(){
         Method method               = PowerMockito.mock(Method.class);
-        Annotation[] annotations    = {mock(NoConditionFlipStrategy.class)};
+        Annotation[] annotations    = {mock(DisabledFeatureFlipStrategy.class)};
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
         when(org.springframework.core.annotation.AnnotationUtils.getAnnotations(method)).thenReturn(annotations);
@@ -124,7 +124,7 @@ public class AnnotationUtilsUnitTest {
 
     @Test
     public void shouldReturnAnnotationsOnClassGivenClass(){
-        Annotation[] annotations    = {mock(NoConditionFlipStrategy.class)};
+        Annotation[] annotations    = {mock(DisabledFeatureFlipStrategy.class)};
         Class clazz                 = TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class;
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);

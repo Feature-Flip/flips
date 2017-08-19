@@ -25,12 +25,6 @@ public class FeatureFlipAdviceIntegrationTest {
         assertEquals(true, result);
     }
 
-    @Test
-    public void shouldInvokeTheUnAnnotatedFeatureSuccessfully(){
-        boolean result = testClientFeatureFlipSpringComponent.unAnnotatedMethod();
-        assertEquals(false, result);
-    }
-
     @Test(expected = FeatureNotEnabledException.class)
     public void shouldThrowFeatureNotEnabledExceptionGivenFeatureIsDisabled(){
         testClientFeatureFlipSpringComponent.disabledMethod();

@@ -26,14 +26,6 @@ public class FeatureFlipAnnotationMetaDataStoreIntegrationTest {
     private FeatureFlipAnnotationMetaDataStore featureFlipAnnotationMetaDataStore;
 
     @Test
-    public void shouldReturnFeatureEnabledGivenFeatureIsSetAsEnabled() throws Exception {
-        Method method  = TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("enabledFeature");
-        boolean result = featureFlipAnnotationMetaDataStore.isFeatureEnabled(method);
-
-        assertEquals(true, result);
-    }
-
-    @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetAsDisabled() throws Exception {
         Method method  = TestClientFeatureFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("disabledFeature");
         boolean result = featureFlipAnnotationMetaDataStore.isFeatureEnabled(method);
