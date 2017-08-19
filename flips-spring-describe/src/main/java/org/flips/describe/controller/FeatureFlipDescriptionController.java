@@ -25,13 +25,13 @@ public class FeatureFlipDescriptionController {
         this.featureFlipAnnotationMetaDataStore = featureFlipAnnotationMetaDataStore;
     }
 
-    @RequestMapping(value = "/features")
+    @RequestMapping(value = "/features", method = RequestMethod.GET)
     @ResponseBody
     public List<FeatureFlipDescription> describeFeatures(){
         return getAllFeatureFlipDescription(null);
     }
 
-    @RequestMapping(value = "/features/{featureName}")
+    @RequestMapping(value = "/features/{featureName}", method = RequestMethod.GET)
     @ResponseBody
     public List<FeatureFlipDescription> describeFeaturesWithFilter(@PathVariable("featureName") String featureName){
         return getAllFeatureFlipDescription(featureName);
