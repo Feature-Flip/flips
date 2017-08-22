@@ -38,9 +38,8 @@
   </properties>
 
   <modules>
-    <module>flips-spring-core</module>
-    <module>flips-spring-aop</module>
-    <module>flips-spring-describe</module>
+    <module>flips-core</module>
+    <module>flips-web</module>
   </modules>
 
   <dependencyManagement>
