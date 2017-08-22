@@ -1,6 +1,6 @@
 package org.flips.describe.controller;
 
-import org.flips.describe.TestFlipDescriptionContextConfiguration;
+import org.flips.describe.TestFlipWebContextConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestFlipDescriptionContextConfiguration.class)
+@ContextConfiguration(classes = TestFlipWebContextConfiguration.class)
 @WebAppConfiguration
 public class FlipDescriptionControllerIntegrationTest {
 

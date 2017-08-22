@@ -7,5 +7,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @FlipScan(basePackages = "org.flips")
 @EnableWebMvc
-public class TestFlipDescriptionContextConfiguration {
+public class TestFlipWebContextConfiguration {
 }

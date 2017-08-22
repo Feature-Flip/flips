@@ -1,13 +1,13 @@
 package org.flips.describe;
 
-import org.flips.describe.config.FlipDescriptionContextConfiguration;
+import org.flips.describe.config.FlipWebContextConfiguration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class FlipDescriptionInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class FlipWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { FlipDescriptionContextConfiguration.class };
+        return new Class[] { FlipWebContextConfiguration.class };
     }
 
     @Override

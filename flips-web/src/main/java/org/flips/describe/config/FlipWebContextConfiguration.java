@@ -8,5 +8,5 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @Import(FlipContextConfiguration.class)
 @EnableWebMvc
-public class FlipDescriptionContextConfiguration {
+public class FlipWebContextConfiguration {
 }
