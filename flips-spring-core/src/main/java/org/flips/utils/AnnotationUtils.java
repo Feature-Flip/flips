@@ -1,6 +1,6 @@
 package org.flips.utils;
 
-import org.flips.model.FeatureFlipStrategyAnnotationAttributes;
+import org.flips.model.FlipAnnotationAttributes;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -35,7 +35,7 @@ public final class AnnotationUtils {
         return org.springframework.core.annotation.AnnotationUtils.getAnnotations(clazz);
     }
 
-    public static FeatureFlipStrategyAnnotationAttributes getAnnotationAttributes(Annotation annotation) {
-        return new FeatureFlipStrategyAnnotationAttributes.Builder().addAll(org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes(annotation)).build();
+    public static FlipAnnotationAttributes getAnnotationAttributes(Annotation annotation) {
+        return new FlipAnnotationAttributes.Builder().addAll(org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes(annotation)).build();
     }
 }
