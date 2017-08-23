@@ -1,6 +1,6 @@
 package org.flips.store;
 
-import org.flips.TestFlipContextConfiguration;
+import org.flips.config.FlipContextConfiguration;
 import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtClassLevel;
 import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.fixture.TestClientFlipAnnotationsWithSpringExpressionAnnotations;
@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestFlipContextConfiguration.class)
+@ContextConfiguration(classes = FlipContextConfiguration.class)
 @TestPropertySource(properties = {"feature.disabled=false", "feature.enabled=true", "past.feature.date=2014-12-30T14:00:00Z", "future.feature.date=3030-12-30T14:00:00Z"})
 @ActiveProfiles("dev")
 public class FlipAnnotationsStoreIntegrationTest {

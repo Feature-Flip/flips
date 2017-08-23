@@ -1,9 +1,9 @@
 package org.flips.fixture;
 
-import org.flips.annotation.Flips;
 import org.flips.annotation.condition.FlipOnSpringExpression;
+import org.springframework.stereotype.Component;
 
-@Flips
+@Component
 public class TestClientFlipAnnotationsWithSpringExpressionAnnotations {
 
     @FlipOnSpringExpression(expression = "@environment.getProperty('should.golive') == true")
@@ -14,7 +14,7 @@ public class TestClientFlipAnnotationsWithSpringExpressionAnnotations {
     public void featureWithSpringExpressionBasedOnBeanReference(){
     }
 
-    @FlipOnSpringExpression(expression = "T(java.lang.Math).random() * 100.0 < T(java.lang.Math).random() * 10.0")
+    @FlipOnSpringExpression(expression = "T(java.lang.Math).sqrt(4) * 100.0 < T(java.lang.Math).sqrt(4) * 10.0")
     public void featureWithSpringExpressionBasedOnNonBeanReference(){
     }
 

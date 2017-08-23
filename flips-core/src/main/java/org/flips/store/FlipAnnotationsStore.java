@@ -1,7 +1,6 @@
 package org.flips.store;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.flips.annotation.Flips;
 import org.flips.model.FlipConditionEvaluator;
 import org.flips.model.FlipConditionEvaluatorFactory;
 import org.flips.processor.FlipAnnotationProcessor;
@@ -14,10 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class FlipAnnotationsStore {
@@ -42,9 +38,9 @@ public class FlipAnnotationsStore {
 
     @PostConstruct
     protected void buildFlipAnnotationsStore(){
-        Map<String, Object> flipComponents = getFlipComponents();
-        if ( !flipComponents.isEmpty() ) {
-            flipComponents.entrySet().stream().forEach(entry -> storeMethodWithFlipConditionEvaluator(AopProxyUtils.ultimateTargetClass(entry.getValue())));
+        String[] flipComponents = getFlipComponents();
+        if ( flipComponents.length != 0 ) {
+            Arrays.stream(flipComponents).forEach(beanDefinition -> storeMethodWithFlipConditionEvaluator(AopProxyUtils.ultimateTargetClass(applicationContext.getBean(beanDefinition))));
         }
         logger.info("Completed building FlipAnnotationsStore {}", store);
     }
@@ -78,7 +74,7 @@ public class FlipAnnotationsStore {
         }
     }
 
-    private Map<String, Object> getFlipComponents() {
-        return applicationContext.getBeansWithAnnotation(Flips.class);
+    private String[] getFlipComponents() {
+        return applicationContext.getBeanDefinitionNames();
     }
 }

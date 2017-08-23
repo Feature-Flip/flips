@@ -1,7 +1,6 @@
 package org.flips.describe.fixture;
 
 
-import org.flips.annotation.Flips;
 import org.flips.annotation.condition.FlipOff;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@Flips
 @RequestMapping(value = "/test")
 public class TestClientControllerWithDisabledFeature {
 

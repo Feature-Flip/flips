@@ -1,6 +1,6 @@
 package org.flips.advice;
 
-import org.flips.TestAdvicedFlipContextConfiguration;
+import org.flips.config.FlipContextConfiguration;
 import org.flips.exception.FeatureNotEnabledException;
 import org.flips.fixture.TestClientFlipSpringService;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestAdvicedFlipContextConfiguration.class)
+@ContextConfiguration(classes = FlipContextConfiguration.class)
 public class FlipAdviceIntegrationTest {
 
     @Autowired

@@ -8,6 +8,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.flips.exception.FeatureNotEnabledException;
 import org.flips.store.FlipAnnotationsStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -19,7 +20,7 @@ public class FlipAdvice {
     private FlipAnnotationsStore flipAnnotationsStore;
 
     @Autowired
-    public FlipAdvice(FlipAnnotationsStore flipAnnotationsStore) {
+    public FlipAdvice(@Lazy FlipAnnotationsStore flipAnnotationsStore) {
         this.flipAnnotationsStore = flipAnnotationsStore;
     }
 

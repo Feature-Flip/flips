@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.flips.describe.model.FlipDescription;
 import org.flips.store.FlipAnnotationsStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
@@ -21,7 +22,7 @@ public class FlipDescriptionController {
     private FlipAnnotationsStore flipAnnotationsStore;
 
     @Autowired
-    public FlipDescriptionController(FlipAnnotationsStore flipAnnotationsStore) {
+    public FlipDescriptionController(@Lazy FlipAnnotationsStore flipAnnotationsStore) {
         this.flipAnnotationsStore = flipAnnotationsStore;
     }
 

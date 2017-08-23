@@ -1,6 +1,6 @@
 package org.flips.describe.controlleradvice;
 
-import org.flips.describe.TestFlipWebContextConfiguration;
+import org.flips.describe.config.FlipWebContextConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,12 +15,11 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestFlipWebContextConfiguration.class)
+@ContextConfiguration(classes = FlipWebContextConfiguration.class)
 @WebAppConfiguration
 public class FeatureNotEnabledExceptionControllerAdviceIntegrationTest {
 

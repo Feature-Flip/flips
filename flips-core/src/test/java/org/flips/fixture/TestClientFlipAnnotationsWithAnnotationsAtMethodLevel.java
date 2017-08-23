@@ -1,12 +1,12 @@
 package org.flips.fixture;
 
-import org.flips.annotation.*;
+import org.flips.annotation.condition.FlipOff;
 import org.flips.annotation.condition.FlipOnDateTime;
 import org.flips.annotation.condition.FlipOnEnvironmentProperty;
 import org.flips.annotation.condition.FlipOnProfiles;
-import org.flips.annotation.condition.FlipOff;
+import org.springframework.stereotype.Component;
 
-@Flips
+@Component
 public class TestClientFlipAnnotationsWithAnnotationsAtMethodLevel {
 
     @FlipOff

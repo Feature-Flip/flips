@@ -1,12 +1,10 @@
 package org.flips.describe.fixture;
 
 
-import org.flips.annotation.Flips;
 import org.flips.annotation.condition.FlipOnDateTime;
 import org.flips.annotation.condition.FlipOff;
 import org.springframework.stereotype.Component;
 
-@Flips
 @Component
 @FlipOnDateTime(cutoffDateTimeProperty = "default.date.enabled")
 public class TestClientFlipAnnotationsDescription {

@@ -1,6 +1,6 @@
 package org.flips.describe.controller;
 
-import org.flips.describe.TestFlipWebContextConfiguration;
+import org.flips.describe.config.FlipWebContextConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TestFlipWebContextConfiguration.class)
+@ContextConfiguration(classes = FlipWebContextConfiguration.class)
 @TestPropertySource(properties = {"default.date.enabled=2015-10-20T16:12:12Z"})
 @WebAppConfiguration
 public class FlipDescriptionControllerIntegrationTest {
