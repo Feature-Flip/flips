@@ -24,9 +24,9 @@ public class FlipAdvice {
     }
 
     @Pointcut("execution(@(@org.flips.annotation.condition.FlipOnOff *) * *(..))")
-    private void featureEnabledPointcut(){}
+    private void featureToInspectPointcut(){}
 
-    @Before("featureEnabledPointcut()")
+    @Before("featureToInspectPointcut()")
     public void inspectFlips(JoinPoint joinPoint) throws Throwable {
         MethodSignature signature   = (MethodSignature) joinPoint.getSignature();
         Method method               = signature.getMethod();
