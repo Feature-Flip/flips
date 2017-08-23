@@ -45,7 +45,7 @@ public class FlipAdviceUnitTest {
     public void shouldThrowFeatureNotEnabledExceptionGivenFeatureIsDisabled() throws Throwable {
         JoinPoint joinPoint         = mock(JoinPoint.class);
         MethodSignature signature   = mock(MethodSignature.class);
-        Method method               = PowerMockito.mock(Method.class);
+        Method method               = this.getClass().getMethod("dummyMethod");
 
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
@@ -57,4 +57,7 @@ public class FlipAdviceUnitTest {
         verify(signature).getMethod();
         verify(flipAnnotationsStore).isFeatureEnabled(method);
     }
+
+    public void dummyMethod(){}
+
 }
