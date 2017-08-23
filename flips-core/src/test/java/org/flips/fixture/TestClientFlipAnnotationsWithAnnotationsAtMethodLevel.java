@@ -14,20 +14,20 @@ public class TestClientFlipAnnotationsWithAnnotationsAtMethodLevel {
 
     }
 
-    @FlipOnDateTime(cutoffDateTime = "2016-07-10")
+    @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     public void pastDateFeature(){
     }
 
-    @FlipOnDateTime(cutoffDateTime = "3030-07-10")
+    @FlipOnDateTime(cutoffDateTimeProperty = "future.feature.date")
     public void futureDateFeature(){
     }
 
-    @FlipOnDateTime(cutoffDateTime = "2016-07-10")
+    @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     @FlipOnEnvironmentProperty(property = "feature.disabled")
     public void pastDateFeatureWithDisabledSpringProperty(){
     }
 
-    @FlipOnDateTime(cutoffDateTime = "2016-07-10")
+    @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     @FlipOnEnvironmentProperty(property = "feature.enabled")
     public void pastDateFeatureWithEnabledSpringProperty(){
     }
@@ -43,7 +43,7 @@ public class TestClientFlipAnnotationsWithAnnotationsAtMethodLevel {
     public void featureWithSameMethodNameInDifferentClass(){
     }
 
-    @FlipOnDateTime(cutoffDateTime = "2016-07-10")
+    @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     @FlipOnEnvironmentProperty(property = "feature.enabled")
     @FlipOff
     public void featureWithFlipOffAndConditionBasedAnnotations(){

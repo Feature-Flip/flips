@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @FlipOnOff(value = DateTimeFlipCondition.class)
 public @interface FlipOnDateTime {
 
-    String cutoffDateTime();
+    String cutoffDateTimeProperty();
 }

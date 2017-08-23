@@ -7,16 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Collections.unmodifiableList;
+import java.time.format.DateTimeParseException;
 
 @Component
 public class DateTimeFlipCondition implements FlipCondition {
@@ -24,20 +18,18 @@ public class DateTimeFlipCondition implements FlipCondition {
     private static final Logger logger = LoggerFactory.getLogger(DateTimeFlipCondition.class);
 
     private static final ZoneId UTC  = ZoneId.of("UTC");
-    private DateTimeFormatterProvider dateTimeFormatterProvider;
-
-    public DateTimeFlipCondition(){
-        dateTimeFormatterProvider = new DateTimeFormatterProvider();
-    }
 
     @Override
     public boolean evaluateCondition(FeatureContext featureContext,
                                      FlipAnnotationAttributes flipAnnotationAttributes) {
 
-        String datetime             = flipAnnotationAttributes.getAttributeValue("cutoffDateTime", "");
-        ValidationUtils.requireNonEmpty(datetime, "cutoffDateTime element can not be NULL or EMPTY when using @FlipOnDateTime");
+        String dateTimeProperty = flipAnnotationAttributes.getAttributeValue("cutoffDateTimeProperty", "");
+        ValidationUtils.requireNonEmpty(dateTimeProperty, "cutoffDateTimeProperty element can not be NULL or EMPTY when using @FlipOnDateTime");
 
-        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(datetime), ZonedDateTime.now(UTC));
+        String dateTime         = featureContext.getPropertyValueOrDefault(dateTimeProperty, String.class, "");
+        ValidationUtils.requireNonEmpty(dateTime, dateTimeProperty + " containing datetime can not be NULL or EMPTY when using @FlipOnDateTime");
+
+        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(dateTime), ZonedDateTime.now(UTC));
     }
 
     private boolean isCurrentDateTimeAfterOrEqualCutoffDateTime(ZonedDateTime cutoffDateTime, ZonedDateTime currentUtcTime) {
@@ -47,73 +39,12 @@ public class DateTimeFlipCondition implements FlipCondition {
 
     private ZonedDateTime getCutoffDateTime(String datetime){
         logger.info("DateTimeFlipCondition: parsing {}", datetime);
-        for(DateTimeFormatter df: dateTimeFormatterProvider.getSupportedFormatters()){
-            try{
-                return ZonedDateTime.parse(datetime, df);
-            }catch ( Exception e ){
-            }
+        try{
+            return OffsetDateTime.parse(datetime).atZoneSameInstant(UTC);
         }
-        throw new RuntimeException("Could not parse " + datetime + ", Supported formats " + dateTimeFormatterProvider.getSupportedFormatterPatterns());
-    }
-
-    class DateTimeFormatterProvider {
-
-        private List<DateTimeFormatter> supportedDateTimeFormatters;
-        private List<String>            supportedDateTimeFormatterPatterns;
-
-        public DateTimeFormatterProvider(){
-            List<DateTimeFormatter> formatters  = new ArrayList<DateTimeFormatter>() {{
-                    add(dateTimeFormatterYYYYMMDD());
-                    add(dateTimeFormatterYYYYMMDDHHMMSS());
-            }};
-            List<String> formatterPatterns      = new ArrayList<String>(){{
-                    add("yyyy-MM-dd");
-                    add("yyyy-MM-dd hh:mm:ss");
-            }};
-            supportedDateTimeFormatters         = unmodifiableList(formatters);
-            supportedDateTimeFormatterPatterns  = unmodifiableList(formatterPatterns);
-        }
-
-        public List<DateTimeFormatter> getSupportedFormatters(){
-            return supportedDateTimeFormatters;
-        }
-
-        public List<String> getSupportedFormatterPatterns(){
-            return supportedDateTimeFormatterPatterns;
-        }
-
-        private DateTimeFormatter dateTimeFormatterYYYYMMDD(){
-            return new DateTimeFormatterBuilder()
-                    .appendValue(ChronoField.YEAR)
-                    .appendLiteral("-")
-                    .appendValue(ChronoField.MONTH_OF_YEAR)
-                    .appendLiteral("-")
-                    .appendValue(ChronoField.DAY_OF_MONTH)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                    .toFormatter()
-                    .withZone(ZoneOffset.UTC);
-        }
-
-        private DateTimeFormatter dateTimeFormatterYYYYMMDDHHMMSS(){
-            return new DateTimeFormatterBuilder()
-                    .appendValue(ChronoField.YEAR)
-                    .appendLiteral("-")
-                    .appendValue(ChronoField.MONTH_OF_YEAR)
-                    .appendLiteral("-")
-                    .appendValue(ChronoField.DAY_OF_MONTH)
-                    .appendLiteral(" ")
-                    .appendValue(ChronoField.HOUR_OF_DAY)
-                    .appendLiteral(":")
-                    .appendValue(ChronoField.MINUTE_OF_HOUR)
-                    .appendLiteral(":")
-                    .appendValue(ChronoField.SECOND_OF_MINUTE)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                    .toFormatter()
-                    .withZone(ZoneOffset.UTC);
+        catch (DateTimeParseException e){
+            logger.error("Could not parse " + datetime + ", expected format yyyy-MM-ddTHH:mm:ssZ");
+            throw e;
         }
     }
 }

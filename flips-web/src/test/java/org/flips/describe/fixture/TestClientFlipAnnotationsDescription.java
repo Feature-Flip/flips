@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Flips
 @Component
-@FlipOnDateTime(cutoffDateTime = "2014-07-25")
+@FlipOnDateTime(cutoffDateTimeProperty = "default.date.enabled")
 public class TestClientFlipAnnotationsDescription {
 
     public void feature1(){

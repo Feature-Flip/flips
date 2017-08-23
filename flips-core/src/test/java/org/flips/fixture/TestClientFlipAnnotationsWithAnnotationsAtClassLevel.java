@@ -6,7 +6,7 @@ import org.flips.annotation.condition.FlipOnEnvironmentProperty;
 import org.flips.annotation.condition.FlipOff;
 
 @Flips
-@FlipOnDateTime(cutoffDateTime = "2016-07-10")
+@FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
 @FlipOnEnvironmentProperty(property = "feature.enabled")
 public class TestClientFlipAnnotationsWithAnnotationsAtClassLevel {
 

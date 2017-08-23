@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestFlipContextConfiguration.class)
-@TestPropertySource(properties = {"feature.disabled=false", "feature.enabled=true"})
+@TestPropertySource(properties = {"feature.disabled=false", "feature.enabled=true", "past.feature.date=2014-12-30T14:00:00Z", "future.feature.date=3030-12-30T14:00:00Z"})
 @ActiveProfiles("dev")
 public class FlipAnnotationsStoreIntegrationTest {
 

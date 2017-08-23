@@ -13,12 +13,12 @@ public class FlipAnnotationAttributesUnitTest {
     @Test
     public void shouldReturnPropertyValueAsStringGivenAnnotationAttributesContainsProperty(){
         Map<String, Object> attributes = new HashMap<String, Object>(){{
-            put("cutoffDateTime", "2017-09-09");
+            put("cutoffDateTimeProperty", "past.feature.date");
         }};
         FlipAnnotationAttributes annotationAttributes = new FlipAnnotationAttributes.Builder().addAll(attributes).build();
 
-        String propertyValue = annotationAttributes.getAttributeValue("cutoffDateTime", "");
-        assertEquals("2017-09-09", propertyValue);
+        String propertyValue = annotationAttributes.getAttributeValue("cutoffDateTimeProperty", "");
+        assertEquals("past.feature.date", propertyValue);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class FlipAnnotationAttributesUnitTest {
         Map<String, Object> attributes                = new HashMap<>();
         FlipAnnotationAttributes annotationAttributes = new FlipAnnotationAttributes.Builder().addAll(attributes).build();
 
-        String propertyValue = annotationAttributes.getAttributeValue("cutoffDateTime", "");
+        String propertyValue = annotationAttributes.getAttributeValue("cutoffDateTimeProperty", "");
         assertEquals("", propertyValue);
     }
 
