@@ -1,18 +1,18 @@
 package org.flips.exception;
 
-import lombok.Getter;
+import org.flips.model.Feature;
 
 import java.lang.reflect.Method;
 
 public class FeatureNotEnabledException extends RuntimeException {
-    @Getter
-    private String featureName ;
-
-    @Getter
-    private String className;
+    private Feature feature;
 
     public FeatureNotEnabledException(String message, Method method) {
         super(message);
-        featureName    = method.getName();
-        className      = method.getDeclaringClass().getName();
-    }}
+        this.feature = new Feature(method.getName(), method.getDeclaringClass().getName());
+    }
+
+    public Feature getFeature(){
+        return feature;
+    }
+}

@@ -11,14 +11,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class FeatureDisabledExceptionControllerAdvice {
+public class FeatureNotEnabledExceptionControllerAdvice {
 
     @ExceptionHandler(FeatureNotEnabledException.class)
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public @ResponseBody
-    ErrorResponse handleUserNotFoundException(FeatureNotEnabledException ex) {
-        String message = "Feature not implemented";
-        ErrorResponse errorResponse= new ErrorResponse(ex, message);
-        return errorResponse;
+    @ResponseStatus  (HttpStatus.NOT_IMPLEMENTED)
+    public @ResponseBody FeatureNotEnabledErrorResponse handleFeatureNotEnabledException(FeatureNotEnabledException ex) {
+        return new FeatureNotEnabledErrorResponse(ex);
     }
 }

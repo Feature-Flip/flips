@@ -9,16 +9,15 @@ import org.springframework.stereotype.Component;
 @Flips
 public class TestClientFlipSpringService {
 
-    @FlipOff
-    public void disabledMethod(){
-    }
-
     public boolean enabledMethod(){
         return true;
+    }
+
+    @FlipOff
+    public void disabledMethod(){
     }
 
     @FlipOnSpringExpression(expression = "T(java.lang.Math).random() * 100.0 < T(java.lang.Math).random() * 10.0")
     public void disabledMethodUsingSpringExpression(){
     }
-
 }

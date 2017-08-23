@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -21,34 +22,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestFlipWebContextConfiguration.class)
 @WebAppConfiguration
-public class FeatureDisabledExceptionControllerAdviceIntegrationTest {
+public class FeatureNotEnabledExceptionControllerAdviceIntegrationTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
 
     private MockMvc mockMvc;
 
     @Before
     public void setUp() {
-      mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                                .build();
+      mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    public void shouldReturnNotImplementedGivenFeatureDisabledMethodCall() throws Exception {
-        mockMvc.perform(get("/controlleradvice/featureDisabled/"))
-                .andExpect(status().is(501))
-                .andExpect(jsonPath("$.message"         ,equalTo("Feature not implemented")))
-                .andExpect(jsonPath("$.featureName"     ,equalTo("featureDisabled")))
-                .andExpect(jsonPath("$.className"       ,equalTo("org.flips.describe.controlleradvice.FeatureDisabledController")));
+    public void shouldReturnNotImplementedGivenFeatureIsDisabled() throws Exception {
+        mockMvc.perform(get("/test/featureDisabled/"))
+                .andExpect(status().is(HttpStatus.NOT_IMPLEMENTED.value()))
+                .andExpect(jsonPath("$.errorMessage" ,equalTo("Feature not enabled, identified by method public void org.flips.describe.fixture.TestClientControllerWithDisabledFeature.featureDisabled()")))
+                .andExpect(jsonPath("$.featureName"  ,equalTo("featureDisabled")))
+                .andExpect(jsonPath("$.className"    ,equalTo("org.flips.describe.fixture.TestClientControllerWithDisabledFeature")));
     }
 
     @Test
-    public void shouldNotReturnNotImplementedGivenFeatureDisabledMethodCall() throws Exception {
-        mockMvc.perform(get("/controlleradvice/featureEnabled/" ))
-                .andExpect(status().is(200))
-                .andDo(print());
+    public void shouldReturnStatusOkGivenFeatureIsEnabled() throws Exception {
+        mockMvc.perform(get("/test/featureEnabled/" ))
+                .andExpect(status().is(200));
     }
-
 }

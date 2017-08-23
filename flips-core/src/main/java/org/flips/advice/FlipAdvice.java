@@ -37,6 +37,6 @@ public class FlipAdvice {
     private void ensureFeatureIsEnabled(Method method) {
         boolean featureEnabled = flipAnnotationsStore.isFeatureEnabled(method);
         if ( !featureEnabled )
-            throw new FeatureNotEnabledException("Feature identified by method " + method, method);
+            throw new FeatureNotEnabledException("Feature not enabled, identified by method " + method, method);
     }
 }

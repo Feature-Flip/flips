@@ -1,25 +1,29 @@
 package org.flips.describe.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.flips.model.Feature;
 
 import java.io.Serializable;
 
 public class FlipDescription implements Serializable {
 
-    @JsonProperty("feature")
-    private String  methodName;
-    @JsonProperty("class")
-    private String  className;
-    @JsonProperty("enabled")
-    private boolean isEnabled;
+    private Feature feature;
 
-    public FlipDescription(String methodName, String className, boolean isEnabled) {
-        this.methodName = methodName;
-        this.className  = className;
-        this.isEnabled  = isEnabled;
+    @JsonProperty("enabled")
+    private boolean enabled;
+
+    public FlipDescription(String methodName, String className, boolean enabled) {
+        this.feature = new Feature(methodName, className);
+        this.enabled = enabled;
     }
 
+    @JsonProperty("feature")
     public String getMethodName(){
-        return methodName;
+        return feature.getFeatureName();
+    }
+
+    @JsonProperty("class")
+    public String getClassName(){
+        return feature.getClassName();
     }
 }
