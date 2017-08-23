@@ -23,7 +23,7 @@ public class FlipAdvice {
         this.flipAnnotationsStore = flipAnnotationsStore;
     }
 
-    @Pointcut("@within(org.flips.annotation.Flips)")
+    @Pointcut("execution(@(@org.flips.annotation.condition.FlipOnOff *) * *(..))")
     private void featureEnabledPointcut(){}
 
     @Before("featureEnabledPointcut()")

@@ -29,4 +29,9 @@ public class FlipAdviceIntegrationTest {
     public void shouldThrowFeatureNotEnabledExceptionGivenFeatureIsDisabled(){
         testClientFlipSpringService.disabledMethod();
     }
+
+    @Test(expected = FeatureNotEnabledException.class)
+    public void shouldThrowFeatureNotEnabledExceptionGivenFeatureIsDisabledUsingSpringExpression(){
+        testClientFlipSpringService.disabledMethodUsingSpringExpression();
+    }
 }
