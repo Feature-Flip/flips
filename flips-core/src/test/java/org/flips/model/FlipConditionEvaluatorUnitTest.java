@@ -1,8 +1,8 @@
 package org.flips.model;
 
-import org.flips.annotation.condition.FlipOnOff;
-import org.flips.annotation.condition.FlipOnEnvironmentProperty;
-import org.flips.annotation.condition.FlipOnProfiles;
+import org.flips.annotation.FlipOnOff;
+import org.flips.annotation.FlipOnEnvironmentProperty;
+import org.flips.annotation.FlipOnProfiles;
 import org.flips.condition.FlipCondition;
 import org.flips.condition.SpringEnvironmentPropertyFlipCondition;
 import org.flips.condition.SpringProfileFlipCondition;

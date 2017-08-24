@@ -1,6 +1,6 @@
 package org.flips.describe.controller;
 
-import org.flips.annotation.condition.FlipOff;
+import org.flips.annotation.FlipOff;
 import org.flips.store.FlipAnnotationsStore;
 import org.hamcrest.Matchers;
 import org.junit.Before;

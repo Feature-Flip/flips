@@ -1,9 +1,9 @@
 package org.flips.fixture;
 
-import org.flips.annotation.condition.FlipOff;
-import org.flips.annotation.condition.FlipOnDateTime;
-import org.flips.annotation.condition.FlipOnEnvironmentProperty;
-import org.flips.annotation.condition.FlipOnProfiles;
+import org.flips.annotation.FlipOff;
+import org.flips.annotation.FlipOnDateTime;
+import org.flips.annotation.FlipOnEnvironmentProperty;
+import org.flips.annotation.FlipOnProfiles;
 import org.springframework.stereotype.Component;
 
 @Component

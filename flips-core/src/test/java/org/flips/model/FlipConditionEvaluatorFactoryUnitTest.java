@@ -1,6 +1,6 @@
 package org.flips.model;
 
-import org.flips.annotation.condition.FlipOnOff;
+import org.flips.annotation.FlipOnOff;
 import org.flips.utils.AnnotationUtils;
 import org.junit.Before;
 import org.junit.Test;

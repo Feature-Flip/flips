@@ -1,4 +1,4 @@
-package org.flips.annotation.condition;
+package org.flips.annotation;
 
 import org.flips.condition.FlipOffCondition;
 

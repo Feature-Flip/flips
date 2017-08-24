@@ -1,6 +1,6 @@
 package org.flips.fixture;
 
-import org.flips.annotation.condition.FlipOnSpringExpression;
+import org.flips.annotation.FlipOnSpringExpression;
 import org.springframework.stereotype.Component;
 
 @Component

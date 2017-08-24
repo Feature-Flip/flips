@@ -1,8 +1,8 @@
 package org.flips.utils;
 
-import org.flips.annotation.condition.FlipOnOff;
-import org.flips.annotation.condition.FlipOnProfiles;
-import org.flips.annotation.condition.FlipOff;
+import org.flips.annotation.FlipOnOff;
+import org.flips.annotation.FlipOnProfiles;
+import org.flips.annotation.FlipOff;
 import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.model.FlipAnnotationAttributes;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 package org.flips.describe.fixture;
 
 
-import org.flips.annotation.condition.FlipOff;
+import org.flips.annotation.FlipOff;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

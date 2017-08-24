@@ -1,6 +1,6 @@
 package org.flips.processor;
 
-import org.flips.annotation.condition.FlipOff;
+import org.flips.annotation.FlipOff;
 import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
 import org.flips.model.FlipConditionEvaluator;
 import org.flips.model.FeatureContext;
