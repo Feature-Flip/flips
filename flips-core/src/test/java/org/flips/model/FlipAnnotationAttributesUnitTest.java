@@ -1,12 +1,12 @@
 package org.flips.model;
 
-import org.apache.commons.lang3.ArrayUtils;
+import org.flips.utils.Utils;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class FlipAnnotationAttributesUnitTest {
 
@@ -37,7 +37,7 @@ public class FlipAnnotationAttributesUnitTest {
         }};
         FlipAnnotationAttributes annotationAttributes = new FlipAnnotationAttributes.Builder().addAll(attributes).build();
 
-        String[] propertyValue = annotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        String[] propertyValue = annotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         assertEquals(new String[]{"dev"}, propertyValue);
     }
 
@@ -46,8 +46,8 @@ public class FlipAnnotationAttributesUnitTest {
         Map<String, Object> attributes                = new HashMap<>();
         FlipAnnotationAttributes annotationAttributes = new FlipAnnotationAttributes.Builder().addAll(attributes).build();
 
-        String[] propertyValue = annotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
-        assertEquals(ArrayUtils.EMPTY_STRING_ARRAY, propertyValue);
+        String[] propertyValue = annotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
+        assertEquals(Utils.EMPTY_STRING_ARRAY, propertyValue);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -55,7 +55,7 @@ public class FlipAnnotationAttributesUnitTest {
         Map<String, Object> attributes                = new HashMap<>();
         FlipAnnotationAttributes annotationAttributes = new FlipAnnotationAttributes.Builder().addAll(attributes).build();
 
-        annotationAttributes.getAttributeValue(null, ArrayUtils.EMPTY_STRING_ARRAY);
+        annotationAttributes.getAttributeValue(null, Utils.EMPTY_STRING_ARRAY);
     }
 
     @Test(expected = IllegalArgumentException.class)

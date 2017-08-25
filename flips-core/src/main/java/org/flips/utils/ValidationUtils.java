@@ -1,7 +1,5 @@
 package org.flips.utils;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 public final class ValidationUtils {
 
@@ -10,14 +8,14 @@ public final class ValidationUtils {
     }
 
     public static final String requireNonEmpty(String str, String message) {
-        boolean isEmpty = StringUtils.isEmpty(str);
+        boolean isEmpty = Utils.isEmpty(str);
         if ( isEmpty )
             throw new IllegalArgumentException(message);
         return str;
     }
 
     public static final <T> T[] requireNonEmpty(T[] t, String message) {
-        if ( ArrayUtils.isEmpty(t) )
+        if ( Utils.isEmpty(t) )
             throw new IllegalArgumentException(message);
         return t;
     }

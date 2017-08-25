@@ -1,8 +1,8 @@
 package org.flips.condition;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.flips.model.FeatureContext;
 import org.flips.model.FlipAnnotationAttributes;
+import org.flips.utils.Utils;
 import org.flips.utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ public class SpringProfileFlipCondition implements FlipCondition {
 
     @Override
     public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
-        String[] expectedProfiles = flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        String[] expectedProfiles = flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         String[] activeProfiles   = featureContext.getActiveProfilesOrEmpty();
 
         ValidationUtils.requireNonEmpty(expectedProfiles, "activeProfiles element can not be NULL or EMPTY when using @FlipOnProfiles");

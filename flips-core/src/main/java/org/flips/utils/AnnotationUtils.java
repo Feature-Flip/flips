@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 public final class AnnotationUtils {
 
-    public AnnotationUtils() {
+    private AnnotationUtils() {
         throw new AssertionError("No AnnotationUtils instances for you!");
     }
 

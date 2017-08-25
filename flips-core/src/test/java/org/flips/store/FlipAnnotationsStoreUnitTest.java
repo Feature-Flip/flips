@@ -1,9 +1,9 @@
 package org.flips.store;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.flips.model.FlipConditionEvaluator;
 import org.flips.model.FlipConditionEvaluatorFactory;
 import org.flips.processor.FlipAnnotationProcessor;
+import org.flips.utils.Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -44,7 +44,7 @@ public class FlipAnnotationsStoreUnitTest {
 
     @Test
     public void shouldNotStoreFlipAnnotationsGivenNoBeansWereAnnotatedWithFlipsAnnotation(){
-        when(applicationContext.getBeanDefinitionNames()).thenReturn(ArrayUtils.EMPTY_STRING_ARRAY);
+        when(applicationContext.getBeanDefinitionNames()).thenReturn(Utils.EMPTY_STRING_ARRAY);
 
         flipAnnotationsStore.buildFlipAnnotationsStore();
 
@@ -115,9 +115,9 @@ public class FlipAnnotationsStoreUnitTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFlipConditionEvaluatorReturnsFalse() throws Exception{
-        Method method                           = FlipAnnotationTestClient.class.getMethod("method1");
-        FlipConditionEvaluator flipConditionEvaluator = mock(FlipConditionEvaluator.class);
-        Map<Method, FlipConditionEvaluator> store   = new HashMap<Method, FlipConditionEvaluator>(){{
+        Method method                                   = FlipAnnotationTestClient.class.getMethod("method1");
+        FlipConditionEvaluator flipConditionEvaluator   = mock(FlipConditionEvaluator.class);
+        Map<Method, FlipConditionEvaluator> store       = new HashMap<Method, FlipConditionEvaluator>(){{
             put(method, flipConditionEvaluator);
         }};
 
@@ -132,9 +132,9 @@ public class FlipAnnotationsStoreUnitTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenMethodIsNotCached() throws Exception{
-        Method method                           = FlipAnnotationTestClient.class.getMethod("method1");
-        FlipConditionEvaluator flipConditionEvaluator = mock(FlipConditionEvaluator.class);
-        Map<Method, FlipConditionEvaluator> store   = new HashMap<Method, FlipConditionEvaluator>(){{
+        Method method                                   = FlipAnnotationTestClient.class.getMethod("method1");
+        FlipConditionEvaluator flipConditionEvaluator   = mock(FlipConditionEvaluator.class);
+        Map<Method, FlipConditionEvaluator> store       = new HashMap<Method, FlipConditionEvaluator>(){{
             put(null, flipConditionEvaluator);
         }};
         ReflectionTestUtils.setField(flipAnnotationsStore, "store", store);

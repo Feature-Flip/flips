@@ -1,9 +1,9 @@
 package org.flips.store;
 
-import org.apache.commons.lang3.reflect.MethodUtils;
 import org.flips.model.FlipConditionEvaluator;
 import org.flips.model.FlipConditionEvaluatorFactory;
 import org.flips.processor.FlipAnnotationProcessor;
+import org.flips.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopProxyUtils;
@@ -63,7 +63,7 @@ public class FlipAnnotationsStore {
         Method[] methods = clazz.getDeclaredMethods();
 
         for( Method method : methods ){
-            Method accessibleMethod = MethodUtils.getAccessibleMethod(method);
+            Method accessibleMethod = Utils.getAccessibleMethod(method);
             if ( accessibleMethod != null ){
                 FlipConditionEvaluator flipConditionEvaluator = flipAnnotationProcessor.getFlipConditionEvaluator(accessibleMethod);
                 if ( !flipConditionEvaluator.isEmpty() ) {

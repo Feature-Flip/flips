@@ -1,14 +1,12 @@
 package org.flips.condition;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.flips.model.FeatureContext;
 import org.flips.model.FlipAnnotationAttributes;
+import org.flips.utils.Utils;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class SpringProfileFlipConditionUnitTest {
 
@@ -20,14 +18,14 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = {"dev", "qa"};
         String[] activeProfiles         = {"dev"};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
 
         assertEquals(true, result);
-        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         verify(featureContext).getActiveProfilesOrEmpty();
     }
 
@@ -39,14 +37,14 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = {"dev", "qa"};
         String[] activeProfiles         = {"uat"};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
 
         assertEquals(false, result);
-        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         verify(featureContext).getActiveProfilesOrEmpty();
     }
 
@@ -58,14 +56,14 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = {"dev", "qa"};
         String[] activeProfiles         = {};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
 
         assertEquals(false, result);
-        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         verify(featureContext).getActiveProfilesOrEmpty();
     }
 
@@ -77,14 +75,14 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = {"dev", "qa"};
         String[] activeProfiles         = {"uat", "dev", "qa"};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
 
         assertEquals(true, result);
-        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY);
+        verify(flipAnnotationAttributes).getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY);
         verify(featureContext).getActiveProfilesOrEmpty();
     }
 
@@ -96,7 +94,7 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = null;
         String[] activeProfiles         = {"uat"};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();
@@ -111,7 +109,7 @@ public class SpringProfileFlipConditionUnitTest {
         String[] expectedActiveProfiles = {};
         String[] activeProfiles         = {"uat"};
 
-        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", ArrayUtils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
+        when(flipAnnotationAttributes.getAttributeValue("activeProfiles", Utils.EMPTY_STRING_ARRAY)).thenReturn(expectedActiveProfiles);
         when(featureContext.getActiveProfilesOrEmpty()).thenReturn(activeProfiles);
 
         SpringProfileFlipCondition condition = new SpringProfileFlipCondition();

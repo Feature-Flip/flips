@@ -1,6 +1,6 @@
 package org.flips.model;
 
-import org.apache.commons.lang3.ArrayUtils;
+import org.flips.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class FeatureContext {
         String[] activeProfiles = environment.getActiveProfiles();
         logger.debug("Getting active profiles {}", activeProfiles);
 
-        return ArrayUtils.isEmpty(activeProfiles) ? ArrayUtils.EMPTY_STRING_ARRAY : activeProfiles;
+        return Utils.isEmpty(activeProfiles) ? Utils.EMPTY_STRING_ARRAY : activeProfiles;
     }
 
     public ExpressionParser getExpressionParser(){

@@ -1,8 +1,8 @@
 package org.flips.describe.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.flips.describe.model.FlipDescription;
 import org.flips.store.FlipAnnotationsStore;
+import org.flips.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +52,8 @@ public class FlipDescriptionController {
     }
 
     private Predicate<Method> getFeatureFilter(String featureName){
-        if ( StringUtils.isEmpty(featureName) ) return (Method method) -> true;
-        return                                         (Method method) -> method.getName().equals(featureName);
+        if ( Utils.isEmpty(featureName) ) return (Method method) -> true;
+        return                                   (Method method) -> method.getName().equals(featureName);
     }
 
     private FlipDescription buildFlipDescription(Method method) {

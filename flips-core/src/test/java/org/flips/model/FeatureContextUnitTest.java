@@ -1,6 +1,6 @@
 package org.flips.model;
 
-import org.apache.commons.lang3.ArrayUtils;
+import org.flips.utils.Utils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,9 +12,7 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FeatureContextUnitTest {
@@ -55,7 +53,7 @@ public class FeatureContextUnitTest {
         when(environment.getActiveProfiles()).thenReturn(null);
         String[] activeProfiles = featureContext.getActiveProfilesOrEmpty();
 
-        assertEquals(ArrayUtils.EMPTY_STRING_ARRAY, activeProfiles);
+        assertEquals(Utils.EMPTY_STRING_ARRAY, activeProfiles);
         verify(environment).getActiveProfiles();
     }
 
