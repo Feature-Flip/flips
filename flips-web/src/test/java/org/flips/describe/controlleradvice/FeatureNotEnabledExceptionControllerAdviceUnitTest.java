@@ -1,5 +1,6 @@
 package org.flips.describe.controlleradvice;
 
+import org.flips.describe.model.FeatureNotEnabledErrorResponse;
 import org.flips.exception.FeatureNotEnabledException;
 import org.junit.Test;
 import org.junit.runner.RunWith;

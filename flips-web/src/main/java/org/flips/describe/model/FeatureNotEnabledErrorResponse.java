@@ -1,4 +1,4 @@
-package org.flips.describe.controlleradvice;
+package org.flips.describe.model;
 
 import org.flips.exception.FeatureNotEnabledException;
 import org.flips.model.Feature;

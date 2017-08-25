@@ -1,5 +1,6 @@
 package org.flips.describe.controlleradvice;
 
+import org.flips.describe.model.FeatureNotEnabledErrorResponse;
 import org.flips.exception.FeatureNotEnabledException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -15,7 +16,8 @@ public class FeatureNotEnabledExceptionControllerAdvice {
 
     @ExceptionHandler(FeatureNotEnabledException.class)
     @ResponseStatus  (HttpStatus.NOT_IMPLEMENTED)
-    public @ResponseBody FeatureNotEnabledErrorResponse handleFeatureNotEnabledException(FeatureNotEnabledException ex) {
+    public @ResponseBody
+    FeatureNotEnabledErrorResponse handleFeatureNotEnabledException(FeatureNotEnabledException ex) {
         return new FeatureNotEnabledErrorResponse(ex);
     }
 }
