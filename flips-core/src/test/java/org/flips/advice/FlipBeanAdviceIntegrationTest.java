@@ -14,13 +14,13 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FlipContextConfiguration.class)
-public class FlipBeanWithAdviceIntegrationTest {
+public class FlipBeanAdviceIntegrationTest {
 
     @Autowired
     private TestClientFlipBeanSpringComponentSource testClientFlipBeanSpringComponentSource;
 
     @Test
-    public void shouldInvokeMethodTargetClassGivenFlipBeanWithAnnotationIsProvided(){
+    public void shouldInvokeMethodTargetClassGivenFlipBeanAnnotationIsProvided(){
         String output = testClientFlipBeanSpringComponentSource.map("flip bean operation");
         assertEquals("flip bean operation:TARGET", output);
     }

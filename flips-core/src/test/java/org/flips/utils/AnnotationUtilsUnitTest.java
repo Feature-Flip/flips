@@ -1,6 +1,6 @@
 package org.flips.utils;
 
-import org.flips.annotation.FlipBeanWith;
+import org.flips.annotation.FlipBean;
 import org.flips.annotation.FlipOff;
 import org.flips.annotation.FlipOnOff;
 import org.flips.annotation.FlipOnProfiles;
@@ -163,15 +163,15 @@ public class AnnotationUtilsUnitTest {
     @Test
     public void shouldReturnAnnotationOfTypeOnClassGivenClass(){
         Class clazz                 = TestClientFlipBeanSpringComponentSource.class;
-        FlipBeanWith  annotation    = mock(FlipBeanWith.class);
+        FlipBean annotation         = mock(FlipBean.class);
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
-        when(org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class)).thenReturn(annotation);
+        when(org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBean.class)).thenReturn(annotation);
 
-        FlipBeanWith flipBeanWith = AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class);
-        assertEquals(annotation, flipBeanWith);
+        FlipBean flipBean = AnnotationUtils.findAnnotation(clazz, FlipBean.class);
+        assertEquals(annotation, flipBean);
 
         PowerMockito.verifyStatic();
-        org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class);
+        org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBean.class);
     }
 }

@@ -16,10 +16,10 @@ import java.lang.reflect.Method;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FlipAdviceUnitTest {
+public class FlipFeatureAdviceUnitTest {
 
     @InjectMocks
-    private FlipAdvice flipAdvice;
+    private FlipFeatureAdvice flipFeatureAdvice;
 
     @Mock
     private FlipAnnotationsStore flipAnnotationsStore;
@@ -34,7 +34,7 @@ public class FlipAdviceUnitTest {
         when(signature.getMethod()).thenReturn(method);
         when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
 
-        flipAdvice.inspectFlips(joinPoint);
+        flipFeatureAdvice.inspectFlips(joinPoint);
 
         verify(joinPoint).getSignature();
         verify(signature).getMethod();
@@ -51,7 +51,7 @@ public class FlipAdviceUnitTest {
         when(signature.getMethod()).thenReturn(method);
         when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(false);
 
-        flipAdvice.inspectFlips(joinPoint);
+        flipFeatureAdvice.inspectFlips(joinPoint);
 
         verify(joinPoint).getSignature();
         verify(signature).getMethod();
