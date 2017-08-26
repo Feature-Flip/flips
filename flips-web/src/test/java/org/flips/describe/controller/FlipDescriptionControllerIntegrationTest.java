@@ -36,7 +36,7 @@ public class FlipDescriptionControllerIntegrationTest {
     @Test
     public void shouldReturnAllFeatureDescriptionGivenFeaturesWereCached() throws Exception {
        mvc.perform(get("/describe/features"))
-           .andExpect(jsonPath("$", Matchers.hasSize(4)))
+           .andExpect(jsonPath("$", Matchers.hasSize(5)))
            .andExpect(jsonPath("$[0].feature", Matchers.equalTo("feature1")))
            .andExpect(jsonPath("$[0].class",   Matchers.equalTo("org.flips.describe.fixture.TestClientFlipAnnotationsDescription")))
            .andExpect(jsonPath("$[0].enabled", Matchers.equalTo(true)))

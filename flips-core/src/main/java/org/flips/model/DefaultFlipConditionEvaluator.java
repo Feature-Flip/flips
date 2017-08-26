@@ -28,7 +28,7 @@ class DefaultFlipConditionEvaluator extends FlipConditionEvaluator {
     private void buildFlipConditions(Annotation[] annotations) {
         for ( Annotation annotation : annotations ){
             if ( AnnotationUtils.isMetaAnnotationDefined(annotation, FlipOnOff.class) ) {
-                Class<? extends FlipCondition> condition       = AnnotationUtils.getAnnotation(annotation, FlipOnOff.class).value();
+                Class<? extends FlipCondition> condition       = AnnotationUtils.getAnnotationOfType(annotation, FlipOnOff.class).value();
                 FlipAnnotationAttributes annotationAttributes  = AnnotationUtils.getAnnotationAttributes(annotation);
 
                 flipConditions.put(condition, annotationAttributes);

@@ -1,9 +1,11 @@
 package org.flips.utils;
 
+import org.flips.annotation.FlipBeanWith;
+import org.flips.annotation.FlipOff;
 import org.flips.annotation.FlipOnOff;
 import org.flips.annotation.FlipOnProfiles;
-import org.flips.annotation.FlipOff;
 import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
+import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.flips.model.FlipAnnotationAttributes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +42,7 @@ public class AnnotationUtilsUnitTest {
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
         when(org.springframework.core.annotation.AnnotationUtils.getAnnotation(flipOff, FlipOff.class)).thenReturn(flipOffAnnotation);
 
-        FlipOff found = AnnotationUtils.getAnnotation(flipOff, FlipOff.class);
+        FlipOff found = AnnotationUtils.getAnnotationOfType(flipOff, FlipOff.class);
         assertNotNull(found);
 
         PowerMockito.verifyStatic();
@@ -156,5 +158,20 @@ public class AnnotationUtilsUnitTest {
 
         PowerMockito.verifyStatic();
         org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes(annotation);
+    }
+
+    @Test
+    public void shouldReturnAnnotationOfTypeOnClassGivenClass(){
+        Class clazz                 = TestClientFlipBeanSpringComponentSource.class;
+        FlipBeanWith  annotation    = mock(FlipBeanWith.class);
+
+        PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
+        when(org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class)).thenReturn(annotation);
+
+        FlipBeanWith flipBeanWith = AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class);
+        assertEquals(annotation, flipBeanWith);
+
+        PowerMockito.verifyStatic();
+        org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBeanWith.class);
     }
 }

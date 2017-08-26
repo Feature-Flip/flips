@@ -3,6 +3,7 @@ package org.flips.utils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -41,6 +42,10 @@ public final class Utils {
         return method;
     }
 
+    public static Object invokeMethod(Method method, Object obj, Object... args) throws InvocationTargetException, IllegalAccessException {
+        return method.invoke(obj, args);
+    }
+
     private static boolean isAccessible(Method method){
         return method != null && Modifier.isPublic(method.getModifiers()) && !method.isSynthetic();
     }
@@ -56,7 +61,7 @@ public final class Utils {
                 try {
                     return anInterface.getDeclaredMethod(methodName,
                             parameterTypes);
-                } catch (final NoSuchMethodException e) { // NOPMD
+                } catch (final NoSuchMethodException e) {
                 }
                 final Method method = getAccessibleMethodFromInterfaceNest(anInterface, methodName, parameterTypes);
                 if (method != null) {

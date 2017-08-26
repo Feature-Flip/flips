@@ -1,7 +1,7 @@
 package org.flips.model;
 
-import org.flips.annotation.FlipOnOff;
 import org.flips.annotation.FlipOnEnvironmentProperty;
+import org.flips.annotation.FlipOnOff;
 import org.flips.annotation.FlipOnProfiles;
 import org.flips.condition.FlipCondition;
 import org.flips.condition.SpringEnvironmentPropertyFlipCondition;
@@ -77,7 +77,7 @@ public class FlipConditionEvaluatorUnitTest {
 
         PowerMockito.mockStatic(AnnotationUtils.class);
         when(AnnotationUtils.isMetaAnnotationDefined(annotations[0], FlipOnOff.class)).thenReturn(true);
-        when(AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class)).thenReturn(annotationFlipOnOff);
+        when(AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class)).thenReturn(annotationFlipOnOff);
         when(annotationFlipOnOff.value()).thenReturn(conditionClass);
         when(AnnotationUtils.getAnnotationAttributes(annotations[0])).thenReturn(annotationAttributes);
         when(applicationContext.getBean(conditionClass)).thenReturn(condition);
@@ -93,7 +93,7 @@ public class FlipConditionEvaluatorUnitTest {
 
         PowerMockito.verifyStatic();
         AnnotationUtils.isMetaAnnotationDefined(annotations[0], FlipOnOff.class);
-        AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class);
+        AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class);
         AnnotationUtils.getAnnotationAttributes(annotations[0]);
     }
 
@@ -110,7 +110,7 @@ public class FlipConditionEvaluatorUnitTest {
 
         PowerMockito.mockStatic(AnnotationUtils.class);
         when(AnnotationUtils.isMetaAnnotationDefined(annotations[0], FlipOnOff.class)).thenReturn(true);
-        when(AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class)).thenReturn(annotationFlipOnOff);
+        when(AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class)).thenReturn(annotationFlipOnOff);
         when(annotationFlipOnOff.value()).thenReturn(conditionClass);
         when(AnnotationUtils.getAnnotationAttributes(annotations[0])).thenReturn(annotationAttributes);
         when(applicationContext.getBean(conditionClass)).thenReturn(condition);
@@ -126,7 +126,7 @@ public class FlipConditionEvaluatorUnitTest {
 
         PowerMockito.verifyStatic();
         AnnotationUtils.isMetaAnnotationDefined(annotations[0], FlipOnOff.class);
-        AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class);
+        AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class);
         AnnotationUtils.getAnnotationAttributes(annotations[0]);
     }
 
@@ -152,8 +152,8 @@ public class FlipConditionEvaluatorUnitTest {
         when(AnnotationUtils.isMetaAnnotationDefined(annotations[1], FlipOnOff.class)).thenReturn(true);
 
 
-        when(AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class)).thenReturn(flipCondition);
-        when(AnnotationUtils.getAnnotation(annotations[1], FlipOnOff.class)).thenReturn(flipConditionOther);
+        when(AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class)).thenReturn(flipCondition);
+        when(AnnotationUtils.getAnnotationOfType(annotations[1], FlipOnOff.class)).thenReturn(flipConditionOther);
 
         when(flipCondition.value()).thenReturn(conditionClass);
         when(flipConditionOther.value()).thenReturn(conditionClassOther);
@@ -182,8 +182,8 @@ public class FlipConditionEvaluatorUnitTest {
         PowerMockito.verifyStatic();
         AnnotationUtils.isMetaAnnotationDefined(annotations[0], FlipOnOff.class);
         AnnotationUtils.isMetaAnnotationDefined(annotations[1], FlipOnOff.class);
-        AnnotationUtils.getAnnotation(annotations[0], FlipOnOff.class);
-        AnnotationUtils.getAnnotation(annotations[1], FlipOnOff.class);
+        AnnotationUtils.getAnnotationOfType(annotations[0], FlipOnOff.class);
+        AnnotationUtils.getAnnotationOfType(annotations[1], FlipOnOff.class);
         AnnotationUtils.getAnnotationAttributes(annotations[0]);
         AnnotationUtils.getAnnotationAttributes(annotations[1]);
     }

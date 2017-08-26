@@ -11,13 +11,13 @@ public final class AnnotationUtils {
         throw new AssertionError("No AnnotationUtils instances for you!");
     }
 
-    public static  <T extends Annotation> T getAnnotation(Annotation annotation, Class<T> cls) {
+    public static  <T extends Annotation> T getAnnotationOfType(Annotation annotation, Class<T> cls) {
         return org.springframework.core.annotation.AnnotationUtils.getAnnotation(annotation, cls);
     }
 
     public static  <T extends Annotation> T findAnnotationByTypeIfAny(Annotation[] annotations, Class<T> cls){
         for ( Annotation a : annotations ){
-            T annotation = getAnnotation(a, cls);
+            T annotation = getAnnotationOfType(a, cls);
             if ( annotation != null ) return annotation;
         }
         return null;
@@ -37,5 +37,9 @@ public final class AnnotationUtils {
 
     public static FlipAnnotationAttributes getAnnotationAttributes(Annotation annotation) {
         return new FlipAnnotationAttributes.Builder().addAll(org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes(annotation)).build();
+    }
+
+    public static <T extends Annotation> T findAnnotation(Class<?> clazz, Class<T> annotationType) {
+        return org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, annotationType);
     }
 }
