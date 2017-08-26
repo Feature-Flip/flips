@@ -2,7 +2,7 @@ package org.flips.describe.controlleradvice;
 
 import org.flips.describe.model.FeatureNotEnabledErrorResponse;
 import org.flips.exception.FeatureNotEnabledException;
-import org.flips.exception.FlipWithBeanFailedException;
+import org.flips.exception.FlipBeanFailedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -29,8 +29,8 @@ public class FlipControllerAdviceUnitTest {
     }
 
     @Test
-    public void shouldHandleFlipWithBeanFailedExceptionGivenFipWithBeanFailed() throws NoSuchMethodException {
-        String response = flipControllerAdvice.handleFlipWithBeanFailedException(new FlipWithBeanFailedException("test"));
+    public void shouldHandleFlipBeanFailedExceptionGivenFipWithBeanFailed() throws NoSuchMethodException {
+        String response = flipControllerAdvice.handleFlipBeanFailedException(new FlipBeanFailedException("test"));
         assertEquals("test", response);
     }
 

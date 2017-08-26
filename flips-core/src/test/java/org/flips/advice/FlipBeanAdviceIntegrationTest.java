@@ -2,7 +2,7 @@ package org.flips.advice;
 
 import org.flips.config.FlipContextConfiguration;
 import org.flips.exception.FeatureNotEnabledException;
-import org.flips.exception.FlipWithBeanFailedException;
+import org.flips.exception.FlipBeanFailedException;
 import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,29 +14,29 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FlipContextConfiguration.class)
-public class FlipBeanWithAdviceIntegrationTest {
+public class FlipBeanAdviceIntegrationTest {
 
     @Autowired
     private TestClientFlipBeanSpringComponentSource testClientFlipBeanSpringComponentSource;
 
     @Test
-    public void shouldInvokeMethodTargetClassGivenFlipBeanWithAnnotationIsProvided(){
+    public void shouldInvokeMethodTargetClassGivenFlipBeanAnnotationIsProvided(){
         String output = testClientFlipBeanSpringComponentSource.map("flip bean operation");
         assertEquals("flip bean operation:TARGET", output);
     }
 
     @Test(expected = FeatureNotEnabledException.class)
-    public void shouldThrowFlipWithBeanFailedExceptionGivenMethodOnTargetIsFlippedOff(){
+    public void shouldThrowFlipBeanFailedExceptionGivenMethodOnTargetIsFlippedOff(){
         testClientFlipBeanSpringComponentSource.currentDate();
     }
 
-    @Test(expected = FlipWithBeanFailedException.class)
-    public void shouldThrowFlipWithBeanFailedExceptionGivenMethodWithTheSameNameAndParameterTypesIsNotPresentInTarget(){
+    @Test(expected = FlipBeanFailedException.class)
+    public void shouldThrowFlipBeanFailedExceptionGivenMethodWithTheSameNameAndParameterTypesIsNotPresentInTarget(){
         testClientFlipBeanSpringComponentSource.nextDate();
     }
 
-    @Test(expected = FlipWithBeanFailedException.class)
-    public void shouldThrowFlipWithBeanFailedExceptionGivenMethodWithTheSameNameAndParameterTypesIsNotAccessibleInTarget(){
+    @Test(expected = FlipBeanFailedException.class)
+    public void shouldThrowFlipBeanFailedExceptionGivenMethodWithTheSameNameAndParameterTypesIsNotAccessibleInTarget(){
         testClientFlipBeanSpringComponentSource.previousDate();
     }
 }

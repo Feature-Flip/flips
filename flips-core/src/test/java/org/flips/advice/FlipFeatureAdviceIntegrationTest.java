@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FlipContextConfiguration.class)
-public class FlipAdviceIntegrationTest {
+public class FlipFeatureAdviceIntegrationTest {
 
     @Autowired
     private TestClientFlipSpringService testClientFlipSpringService;

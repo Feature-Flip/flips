@@ -2,7 +2,7 @@ package org.flips.describe.controlleradvice;
 
 import org.flips.describe.model.FeatureNotEnabledErrorResponse;
 import org.flips.exception.FeatureNotEnabledException;
-import org.flips.exception.FlipWithBeanFailedException;
+import org.flips.exception.FlipBeanFailedException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,10 @@ public class FlipControllerAdvice {
         return new FeatureNotEnabledErrorResponse(ex);
     }
 
-    @ExceptionHandler(FlipWithBeanFailedException.class)
+    @ExceptionHandler(FlipBeanFailedException.class)
     @ResponseStatus  (HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public String handleFlipWithBeanFailedException(FlipWithBeanFailedException ex) {
+    public String handleFlipBeanFailedException(FlipBeanFailedException ex) {
         return ex.getMessage();
     }
 }

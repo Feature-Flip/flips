@@ -2,9 +2,9 @@ package org.flips.advice;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.flips.annotation.FlipBeanWith;
+import org.flips.annotation.FlipBean;
 import org.flips.exception.FeatureNotEnabledException;
-import org.flips.exception.FlipWithBeanFailedException;
+import org.flips.exception.FlipBeanFailedException;
 import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.flips.fixture.TestClientFlipBeanSpringComponentTarget;
 import org.flips.utils.AnnotationUtils;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({AnnotationUtils.class, Utils.class})
-public class FlipBeanWithAdviceUnitTest {
+public class FlipBeanAdviceUnitTest {
 
     @InjectMocks
     private FlipBeanAdvice flipBeanAdvice;
@@ -39,24 +39,24 @@ public class FlipBeanWithAdviceUnitTest {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
         Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("map", String.class);
-        FlipBeanWith flipBeanWith             = mock(FlipBeanWith.class);
+        FlipBean flipBean = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentSource.class;
 
         PowerMockito.mockStatic(AnnotationUtils.class);
 
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
-        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class)).thenReturn(flipBeanWith);
-        when(flipBeanWith.alternateBean()).thenReturn(tobeFlippedWith);
+        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
 
         flipBeanAdvice.inspectFlips(joinPoint);
 
         verify(joinPoint).getSignature();
         verify(signature).getMethod();
         PowerMockito.verifyStatic();
-        AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class);
+        AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class);
 
-        verify(flipBeanWith).alternateBean();
+        verify(flipBean).with();
         verify(joinPoint).proceed();
         verify(applicationContext, never()).getBean(any(Class.class));
     }
@@ -66,7 +66,7 @@ public class FlipBeanWithAdviceUnitTest {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
         Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("map", String.class);
-        FlipBeanWith flipBeanWith             = mock(FlipBeanWith.class);
+        FlipBean flipBean = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentTarget.class;
 
         PowerMockito.mockStatic(AnnotationUtils.class);
@@ -74,8 +74,8 @@ public class FlipBeanWithAdviceUnitTest {
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
         when(joinPoint.getArgs()).thenReturn(new Object[]{"Input"});
-        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class)).thenReturn(flipBeanWith);
-        when(flipBeanWith.alternateBean()).thenReturn(tobeFlippedWith);
+        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(mock(tobeFlippedWith));
 
         flipBeanAdvice.inspectFlips(joinPoint);
@@ -83,20 +83,20 @@ public class FlipBeanWithAdviceUnitTest {
         verify(joinPoint).getSignature();
         verify(signature).getMethod();
         PowerMockito.verifyStatic();
-        AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class);
+        AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class);
 
-        verify(flipBeanWith).alternateBean();
+        verify(flipBean).with();
         verify(applicationContext).getBean(tobeFlippedWith);
         verify(joinPoint).getArgs();
         verify(joinPoint, never()).proceed();
     }
 
-    @Test(expected = FlipWithBeanFailedException.class)
+    @Test(expected = FlipBeanFailedException.class)
     public void shouldNotFlipBeanGivenTargetClassDoesNotContainTheMethodToBeInvoked() throws Throwable {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
         Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("nextDate");
-        FlipBeanWith flipBeanWith             = mock(FlipBeanWith.class);
+        FlipBean flipBean = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentTarget.class;
 
         PowerMockito.mockStatic(AnnotationUtils.class);
@@ -104,19 +104,19 @@ public class FlipBeanWithAdviceUnitTest {
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
         when(joinPoint.getArgs()).thenReturn(new Object[]{"Input"});
-        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class)).thenReturn(flipBeanWith);
-        when(flipBeanWith.alternateBean()).thenReturn(tobeFlippedWith);
+        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(mock(tobeFlippedWith));
 
         flipBeanAdvice.inspectFlips(joinPoint);
     }
 
-    @Test(expected = FlipWithBeanFailedException.class)
+    @Test(expected = FlipBeanFailedException.class)
     public void shouldNotFlipBeanGivenInvocationTargetExceptionIsThrownWhileInvokingMethodOnTargetBean() throws Throwable {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
         Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("currentDate");
-        FlipBeanWith flipBeanWith             = mock(FlipBeanWith.class);
+        FlipBean flipBean = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentTarget.class;
         Object bean                           = mock(tobeFlippedWith);
 
@@ -126,8 +126,8 @@ public class FlipBeanWithAdviceUnitTest {
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
         when(joinPoint.getArgs()).thenReturn(new Object[]{"Input"});
-        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class)).thenReturn(flipBeanWith);
-        when(flipBeanWith.alternateBean()).thenReturn(tobeFlippedWith);
+        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(bean);
         PowerMockito.doThrow(new InvocationTargetException(new RuntimeException("test"))).when(Utils.class, "invokeMethod", any(Method.class), any(), any(Object[].class));
 
@@ -139,7 +139,7 @@ public class FlipBeanWithAdviceUnitTest {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
         Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("currentDate");
-        FlipBeanWith flipBeanWith             = mock(FlipBeanWith.class);
+        FlipBean flipBean = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentTarget.class;
         Object bean                           = mock(tobeFlippedWith);
 
@@ -149,8 +149,8 @@ public class FlipBeanWithAdviceUnitTest {
         when(joinPoint.getSignature()).thenReturn(signature);
         when(signature.getMethod()).thenReturn(method);
         when(joinPoint.getArgs()).thenReturn(new Object[]{"Input"});
-        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class)).thenReturn(flipBeanWith);
-        when(flipBeanWith.alternateBean()).thenReturn(tobeFlippedWith);
+        when(AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(bean);
         PowerMockito.doThrow(new InvocationTargetException(new FeatureNotEnabledException("feature not enabled", method))).when(Utils.class, "invokeMethod", any(Method.class), any(), any(Object[].class));
 

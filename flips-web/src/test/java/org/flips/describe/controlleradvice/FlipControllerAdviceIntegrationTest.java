@@ -50,7 +50,7 @@ public class FlipControllerAdviceIntegrationTest {
     }
 
     @Test
-    public void shouldInvokeAlternateBeanGivenFlipBeanWithAnnotationIsPresent() throws Exception {
+    public void shouldInvokeAlternateBeanGivenFlipBeanAnnotationIsPresent() throws Exception {
         mockMvc.perform(get("/test/className/"))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(MockMvcResultMatchers.content().string("org.flips.describe.fixture.TestClientController"));

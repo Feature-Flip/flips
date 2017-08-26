@@ -15,12 +15,12 @@ import java.lang.reflect.Method;
 
 @Component
 @Aspect
-public class FlipAdvice {
+public class FlipFeatureAdvice {
 
     private FlipAnnotationsStore flipAnnotationsStore;
 
     @Autowired
-    public FlipAdvice(@Lazy FlipAnnotationsStore flipAnnotationsStore) {
+    public FlipFeatureAdvice(@Lazy FlipAnnotationsStore flipAnnotationsStore) {
         this.flipAnnotationsStore = flipAnnotationsStore;
     }
 

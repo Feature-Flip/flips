@@ -5,9 +5,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.flips.annotation.FlipBeanWith;
+import org.flips.annotation.FlipBean;
 import org.flips.exception.FeatureNotEnabledException;
-import org.flips.exception.FlipWithBeanFailedException;
+import org.flips.exception.FlipBeanFailedException;
 import org.flips.utils.AnnotationUtils;
 import org.flips.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +29,15 @@ public class FlipBeanAdvice {
         this.applicationContext = applicationContext;
     }
 
-    @Pointcut("within(@org.flips.annotation.FlipBeanWith *)")
+    @Pointcut("within(@org.flips.annotation.FlipBean *)")
     private void flipBeanPointcut(){}
 
     @Around("flipBeanPointcut()")
     public Object inspectFlips(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature   = (MethodSignature) joinPoint.getSignature();
         Method method               = signature.getMethod();
-        FlipBeanWith annotation     = AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBeanWith.class);
-        Class<?> tobeFlippedWith    = annotation.alternateBean();
+        FlipBean annotation         = AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class);
+        Class<?> tobeFlippedWith    = annotation.with();
 
         if ( !isTargetSameAsDeclaringClassOfMethod(method, tobeFlippedWith) ){
             Method targetMethod = getMethodOnTargetBean(method, tobeFlippedWith);
@@ -56,7 +56,7 @@ public class FlipBeanAdvice {
             return ClassUtils.getMethod(tobeFlippedWith, method.getName(), method.getParameterTypes());
         }
         catch (IllegalStateException e){
-            throw new FlipWithBeanFailedException("Could not invoke " + method.getName() + " alternateBean parameters " + method.getParameterTypes() + " on class " + tobeFlippedWith, e);
+            throw new FlipBeanFailedException("Could not invoke " + method.getName() + " with parameters " + method.getParameterTypes() + " on class " + tobeFlippedWith, e);
         }
     }
 
@@ -68,7 +68,7 @@ public class FlipBeanAdvice {
             if ( ex.getCause() instanceof FeatureNotEnabledException ){
                 throw ex.getCause();
             }else{
-                throw new FlipWithBeanFailedException(ex);
+                throw new FlipBeanFailedException(ex);
             }
         }
     }

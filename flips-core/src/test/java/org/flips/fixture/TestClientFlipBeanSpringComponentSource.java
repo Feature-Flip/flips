@@ -1,12 +1,12 @@
 package org.flips.fixture;
 
-import org.flips.annotation.FlipBeanWith;
+import org.flips.annotation.FlipBean;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
-@FlipBeanWith(alternateBean = TestClientFlipBeanSpringComponentTarget.class)
+@FlipBean(with = TestClientFlipBeanSpringComponentTarget.class)
 public class TestClientFlipBeanSpringComponentSource {
 
     public String map(String str){
