@@ -1,8 +1,7 @@
 package org.flips.store;
 
 import org.flips.config.FlipContextConfiguration;
-import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtClassLevel;
-import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
+import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsOnMethod;
 import org.flips.fixture.TestClientFlipAnnotationsWithSpringExpressionAnnotations;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +26,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetAsDisabled() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("disabledFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("disabledFeature");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -35,7 +34,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenFeatureIsSetWithPastCutoffDateTimeFlipCondition() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("pastDateFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeature");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
@@ -43,7 +42,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetWithFutureCutoffDateTimeFlipCondition() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("futureDateFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("futureDateFeature");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -51,7 +50,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetWithPastCutoffDateTimeFlipConditionAndFeaturePropertyIsDisabled() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("pastDateFeatureWithDisabledSpringProperty");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeatureWithDisabledSpringProperty");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -59,7 +58,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenFeatureIsSetWithPastCutoffDateTimeFlipConditionAndFeaturePropertyIsEnabled() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("pastDateFeatureWithEnabledSpringProperty");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeatureWithEnabledSpringProperty");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
@@ -67,7 +66,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenActiveProfileIsOneOfExpectedProfiles() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("springProfilesFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("springProfilesFeature");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
@@ -75,26 +74,10 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenNoFlipConditionIsPresent() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("noFeatureConditionsAppliedEnabledByDefault");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("noFeatureConditionsAppliedEnabledByDefault");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
-    }
-
-    @Test
-    public void shouldReturnFeatureEnabledGivenFeatureIsEnabledAtClassLevel() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtClassLevel.class.getMethod("featureWithAnnotationsAtClassLevel");
-        boolean result = flipAnnotationsStore.isFeatureEnabled(method);
-
-        assertEquals(true, result);
-    }
-
-    @Test
-    public void shouldReturnFeatureDisabledGivenFeatureOverriddenAtMethodLevel() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsAtClassLevel.class.getMethod("featureWithAnnotationOverridingAtMethodLevel");
-        boolean result = flipAnnotationsStore.isFeatureEnabled(method);
-
-        assertEquals(false, result);
     }
 
     @Test
@@ -130,16 +113,8 @@ public class FlipAnnotationsStoreIntegrationTest {
     }
 
     @Test
-    public void shouldReturnFeatureWithSameNameInDifferentClassEnabledGivenFeatureIsSetToEnabled() throws Exception {
-        Method method   = TestClientFlipAnnotationsWithAnnotationsAtClassLevel.class.getMethod("featureWithSameMethodNameInDifferentClass");
-        boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
-
-        assertEquals(true, result);
-    }
-
-    @Test
     public void shouldReturnFeatureWithSameNameInDifferentClassDisabledGivenFeatureIsSetToDisabledWith() throws Exception {
-        Method method   = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("featureWithSameMethodNameInDifferentClass");
+        Method method   = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithSameMethodNameInDifferentClass");
         boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -147,7 +122,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsDisabled() throws Exception {
-        Method method   = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class.getMethod("featureWithFlipOffAndConditionBasedAnnotations");
+        Method method   = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithFlipOffAndConditionBasedAnnotations");
         boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);

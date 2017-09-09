@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/test-other")
-@FlipBean(with = TestClientController.class)
 public class TestClientControllerOther {
 
+    @FlipBean(with = TestClientController.class)
     @RequestMapping(value = "/className", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String className() {
         return TestClientControllerOther.class.getName();
     }
 
+    @FlipBean(with = TestClientController.class)
     @RequestMapping(value = "/methodName", method = RequestMethod.GET)
     public void methodName() {
     }

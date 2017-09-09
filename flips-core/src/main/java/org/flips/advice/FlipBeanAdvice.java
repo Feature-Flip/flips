@@ -29,14 +29,14 @@ public class FlipBeanAdvice {
         this.applicationContext = applicationContext;
     }
 
-    @Pointcut("within(@org.flips.annotation.FlipBean *)")
+    @Pointcut("@annotation(org.flips.annotation.FlipBean)")
     private void flipBeanPointcut(){}
 
     @Around("flipBeanPointcut()")
     public Object inspectFlips(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature   = (MethodSignature) joinPoint.getSignature();
         Method method               = signature.getMethod();
-        FlipBean annotation         = AnnotationUtils.findAnnotation(method.getDeclaringClass(), FlipBean.class);
+        FlipBean annotation         = AnnotationUtils.getAnnotation(method, FlipBean.class);
         Class<?> tobeFlippedWith    = annotation.with();
 
         if ( !isTargetSameAsDeclaringClassOfMethod(method, tobeFlippedWith) ){

@@ -35,6 +35,10 @@ public final class AnnotationUtils {
         return org.springframework.core.annotation.AnnotationUtils.getAnnotations(clazz);
     }
 
+    public static <T extends Annotation> T getAnnotation(Method method, Class<T> annotationType){
+        return method.getAnnotation(annotationType);
+    }
+
     public static FlipAnnotationAttributes getAnnotationAttributes(Annotation annotation) {
         return new FlipAnnotationAttributes.Builder().addAll(org.springframework.core.annotation.AnnotationUtils.getAnnotationAttributes(annotation)).build();
     }

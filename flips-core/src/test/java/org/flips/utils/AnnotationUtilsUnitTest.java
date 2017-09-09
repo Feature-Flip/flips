@@ -4,7 +4,7 @@ import org.flips.annotation.FlipBean;
 import org.flips.annotation.FlipOff;
 import org.flips.annotation.FlipOnOff;
 import org.flips.annotation.FlipOnProfiles;
-import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsAtMethodLevel;
+import org.flips.fixture.TestClientFlipAnnotationsWithAnnotationsOnMethod;
 import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.flips.model.FlipAnnotationAttributes;
 import org.junit.Test;
@@ -127,7 +127,7 @@ public class AnnotationUtilsUnitTest {
     @Test
     public void shouldReturnAnnotationsOnClassGivenClass(){
         Annotation[] annotations    = {mock(FlipOff.class)};
-        Class clazz                 = TestClientFlipAnnotationsWithAnnotationsAtMethodLevel.class;
+        Class clazz                 = TestClientFlipAnnotationsWithAnnotationsOnMethod.class;
 
         PowerMockito.mockStatic(org.springframework.core.annotation.AnnotationUtils.class);
         when(org.springframework.core.annotation.AnnotationUtils.getAnnotations(any(Class.class))).thenReturn(annotations);
@@ -173,5 +173,14 @@ public class AnnotationUtilsUnitTest {
 
         PowerMockito.verifyStatic();
         org.springframework.core.annotation.AnnotationUtils.findAnnotation(clazz, FlipBean.class);
+    }
+
+    @Test
+    public void shouldReturnSingleAnnotationOnMethodGivenMethodAndAnnotationType() throws Exception {
+        Class clazz                 = TestClientFlipBeanSpringComponentSource.class;
+        Method method               = clazz.getMethod("noflip", String.class);
+
+        FlipBean annotation = AnnotationUtils.getAnnotation(method, FlipBean.class);
+        assertNotNull(annotation);
     }
 }

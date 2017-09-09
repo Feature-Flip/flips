@@ -24,23 +24,13 @@ public class FlipAnnotationProcessor {
     }
 
     public FlipConditionEvaluator getFlipConditionEvaluator(Method method){
-        FlipConditionEvaluator flipConditionEvaluator = getFlipConditionEvaluatorOnMethod(method);
-
-        if ( !flipConditionEvaluator.isEmpty() )    return flipConditionEvaluator;
-        return                                      getFlipConditionEvaluatorOnClass(method.getDeclaringClass());
+        return getFlipConditionEvaluatorOnMethod(method);
     }
 
     private FlipConditionEvaluator getFlipConditionEvaluatorOnMethod(Method method) {
         logger.debug("Getting feature condition evaluator at Method level {}", method.getName());
 
         Annotation[] annotations = AnnotationUtils.getAnnotations(method);
-        return buildFlipConditionEvaluator(annotations);
-    }
-
-    private FlipConditionEvaluator getFlipConditionEvaluatorOnClass(Class<?> clazz) {
-        logger.debug("Getting feature condition evaluator at class level {}", clazz.getName());
-
-        Annotation[] annotations = AnnotationUtils.getAnnotations(clazz);
         return buildFlipConditionEvaluator(annotations);
     }
 

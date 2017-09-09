@@ -42,7 +42,7 @@ public class FlipAnnotationsStore {
         if ( flipComponents.length != 0 ) {
             Arrays.stream(flipComponents).forEach(beanDefinition -> storeMethodWithFlipConditionEvaluator(AopProxyUtils.ultimateTargetClass(applicationContext.getBean(beanDefinition))));
         }
-        logger.info("Completed building FlipAnnotationsStore {}", store);
+        logger.debug("Completed building FlipAnnotationsStore {}", store);
     }
 
     public boolean isFeatureEnabled(Method method) {

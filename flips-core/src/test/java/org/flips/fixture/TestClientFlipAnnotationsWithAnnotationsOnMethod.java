@@ -7,7 +7,7 @@ import org.flips.annotation.FlipOnProfiles;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestClientFlipAnnotationsWithAnnotationsAtMethodLevel {
+public class TestClientFlipAnnotationsWithAnnotationsOnMethod {
 
     @FlipOff
     public void disabledFeature(){
