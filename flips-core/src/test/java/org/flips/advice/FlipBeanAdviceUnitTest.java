@@ -7,6 +7,7 @@ import org.flips.exception.FeatureNotEnabledException;
 import org.flips.exception.FlipBeanFailedException;
 import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.flips.fixture.TestClientFlipBeanSpringComponentTarget;
+import org.flips.store.FlipAnnotationsStore;
 import org.flips.utils.AnnotationUtils;
 import org.flips.utils.Utils;
 import org.junit.Test;
@@ -34,11 +35,14 @@ public class FlipBeanAdviceUnitTest {
     @Mock
     private ApplicationContext applicationContext;
 
+    @Mock
+    private FlipAnnotationsStore flipAnnotationsStore;
+
     @Test
     public void shouldNotFlipBeanAsTargetClassToBeFlippedWithIsSameAsSourceClass() throws Throwable {
         ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
         MethodSignature signature             = mock(MethodSignature.class);
-        Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("noflip", String.class);
+        Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("noFlip", String.class);
         FlipBean flipBean                     = mock(FlipBean.class);
         Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentSource.class;
 
@@ -48,6 +52,7 @@ public class FlipBeanAdviceUnitTest {
         when(signature.getMethod()).thenReturn(method);
         when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
         when(flipBean.with()).thenReturn(tobeFlippedWith);
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
 
         flipBeanAdvice.inspectFlips(joinPoint);
 
@@ -59,6 +64,36 @@ public class FlipBeanAdviceUnitTest {
         verify(flipBean).with();
         verify(joinPoint).proceed();
         verify(applicationContext, never()).getBean(any(Class.class));
+        verify(flipAnnotationsStore).isFeatureEnabled(method);
+    }
+
+    @Test
+    public void shouldNotFlipBeanAsConditionToFlipBeanEvaluateToFalse() throws Throwable {
+        ProceedingJoinPoint joinPoint         = mock(ProceedingJoinPoint.class);
+        MethodSignature signature             = mock(MethodSignature.class);
+        Method method                         = TestClientFlipBeanSpringComponentSource.class.getMethod("noFlip", String.class);
+        FlipBean flipBean                     = mock(FlipBean.class);
+        Class tobeFlippedWith                 = TestClientFlipBeanSpringComponentSource.class;
+
+        PowerMockito.mockStatic(AnnotationUtils.class);
+
+        when(joinPoint.getSignature()).thenReturn(signature);
+        when(signature.getMethod()).thenReturn(method);
+        when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
+        when(flipBean.with()).thenReturn(tobeFlippedWith);
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(false);
+
+        flipBeanAdvice.inspectFlips(joinPoint);
+
+        verify(joinPoint).getSignature();
+        verify(signature).getMethod();
+        PowerMockito.verifyStatic();
+        AnnotationUtils.getAnnotation(method, FlipBean.class);
+
+        verify(flipBean).with();
+        verify(joinPoint).proceed();
+        verify(applicationContext, never()).getBean(any(Class.class));
+        verify(flipAnnotationsStore).isFeatureEnabled(method);
     }
 
     @Test
@@ -77,6 +112,7 @@ public class FlipBeanAdviceUnitTest {
         when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
         when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(mock(tobeFlippedWith));
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
 
         flipBeanAdvice.inspectFlips(joinPoint);
 
@@ -89,6 +125,7 @@ public class FlipBeanAdviceUnitTest {
         verify(applicationContext).getBean(tobeFlippedWith);
         verify(joinPoint).getArgs();
         verify(joinPoint, never()).proceed();
+        verify(flipAnnotationsStore).isFeatureEnabled(method);
     }
 
     @Test(expected = FlipBeanFailedException.class)
@@ -107,6 +144,7 @@ public class FlipBeanAdviceUnitTest {
         when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
         when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(mock(tobeFlippedWith));
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
 
         flipBeanAdvice.inspectFlips(joinPoint);
     }
@@ -129,6 +167,7 @@ public class FlipBeanAdviceUnitTest {
         when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
         when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(bean);
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
         PowerMockito.doThrow(new InvocationTargetException(new RuntimeException("test"))).when(Utils.class, "invokeMethod", any(Method.class), any(), any(Object[].class));
 
         flipBeanAdvice.inspectFlips(joinPoint);
@@ -152,6 +191,7 @@ public class FlipBeanAdviceUnitTest {
         when(AnnotationUtils.getAnnotation(method, FlipBean.class)).thenReturn(flipBean);
         when(flipBean.with()).thenReturn(tobeFlippedWith);
         when(applicationContext.getBean(tobeFlippedWith)).thenReturn(bean);
+        when(flipAnnotationsStore.isFeatureEnabled(method)).thenReturn(true);
         PowerMockito.doThrow(new InvocationTargetException(new FeatureNotEnabledException("feature not enabled", method))).when(Utils.class, "invokeMethod", any(Method.class), any(), any(Object[].class));
 
         flipBeanAdvice.inspectFlips(joinPoint);

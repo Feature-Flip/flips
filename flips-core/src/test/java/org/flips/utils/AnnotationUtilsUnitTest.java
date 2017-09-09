@@ -178,7 +178,7 @@ public class AnnotationUtilsUnitTest {
     @Test
     public void shouldReturnSingleAnnotationOnMethodGivenMethodAndAnnotationType() throws Exception {
         Class clazz                 = TestClientFlipBeanSpringComponentSource.class;
-        Method method               = clazz.getMethod("noflip", String.class);
+        Method method               = clazz.getMethod("noFlip", String.class);
 
         FlipBean annotation = AnnotationUtils.getAnnotation(method, FlipBean.class);
         assertNotNull(annotation);

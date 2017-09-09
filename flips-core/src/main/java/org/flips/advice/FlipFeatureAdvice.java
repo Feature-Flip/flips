@@ -24,7 +24,7 @@ public class FlipFeatureAdvice {
         this.flipAnnotationsStore = flipAnnotationsStore;
     }
 
-    @Pointcut("execution(@(@org.flips.annotation.FlipOnOff *) * *(..))")
+    @Pointcut("execution(@(@org.flips.annotation.FlipOnOff *) * *(..)) && !@annotation(org.flips.annotation.FlipBean)")
     private void featureToInspectPointcut(){}
 
     @Before("featureToInspectPointcut()")

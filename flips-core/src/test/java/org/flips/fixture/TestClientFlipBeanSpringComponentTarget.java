@@ -20,4 +20,16 @@ public class TestClientFlipBeanSpringComponentTarget {
     private LocalDate previousDate(){
         return currentDate().minusDays(1);
     }
+
+    public String changeCase(String str){
+        return str.toLowerCase();
+    }
+
+    public String identity(String str){
+        return str + ":" + "identity";
+    }
+
+    public String html(){
+        return "<html></html>".toUpperCase();
+    }
 }

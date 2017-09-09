@@ -8,10 +8,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.flips.annotation.FlipBean;
 import org.flips.exception.FeatureNotEnabledException;
 import org.flips.exception.FlipBeanFailedException;
+import org.flips.store.FlipAnnotationsStore;
 import org.flips.utils.AnnotationUtils;
 import org.flips.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
@@ -24,9 +26,12 @@ public class FlipBeanAdvice {
 
     private ApplicationContext applicationContext;
 
+    private FlipAnnotationsStore flipAnnotationsStore;
+
     @Autowired
-    public FlipBeanAdvice(ApplicationContext applicationContext) {
+    public FlipBeanAdvice(ApplicationContext applicationContext, @Lazy FlipAnnotationsStore flipAnnotationsStore) {
         this.applicationContext = applicationContext;
+        this.flipAnnotationsStore = flipAnnotationsStore;
     }
 
     @Pointcut("@annotation(org.flips.annotation.FlipBean)")
@@ -39,7 +44,7 @@ public class FlipBeanAdvice {
         FlipBean annotation         = AnnotationUtils.getAnnotation(method, FlipBean.class);
         Class<?> tobeFlippedWith    = annotation.with();
 
-        if ( !isTargetSameAsDeclaringClassOfMethod(method, tobeFlippedWith) ){
+        if ( shouldFlipBean(method, tobeFlippedWith) ) {
             Method targetMethod = getMethodOnTargetBean(method, tobeFlippedWith);
             return invokeMethod(joinPoint, tobeFlippedWith, targetMethod);
         }
@@ -47,8 +52,9 @@ public class FlipBeanAdvice {
         return joinPoint.proceed();
     }
 
-    private boolean isTargetSameAsDeclaringClassOfMethod(Method method, Class<?> tobeFlippedWith) {
-        return tobeFlippedWith == method.getDeclaringClass();
+    private boolean shouldFlipBean(Method method, Class<?> tobeFlippedWith) {
+        return  flipAnnotationsStore.isFeatureEnabled(method) &&
+                (tobeFlippedWith != method.getDeclaringClass());
     }
 
     private Method getMethodOnTargetBean(Method method, Class<?> tobeFlippedWith) {

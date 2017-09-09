@@ -7,13 +7,17 @@ import org.flips.fixture.TestClientFlipBeanSpringComponentSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FlipContextConfiguration.class)
+@ActiveProfiles("dev")
+@TestPropertySource(properties = {"flip.bean=1"})
 public class FlipBeanAdviceIntegrationTest {
 
     @Autowired
@@ -38,5 +42,23 @@ public class FlipBeanAdviceIntegrationTest {
     @Test(expected = FlipBeanFailedException.class)
     public void shouldThrowFlipBeanFailedExceptionGivenMethodWithTheSameNameAndParameterTypesIsNotAccessibleInTarget(){
         testClientFlipBeanSpringComponentSource.previousDate();
+    }
+
+    @Test
+    public void shouldInvokeMethodTargetClassGivenFlipBeanAnnotationWithConditionEvaluatingToTrueIsProvided(){
+        String output = testClientFlipBeanSpringComponentSource.changeCase("InPuT");
+        assertEquals("input", output);
+    }
+
+    @Test
+    public void shouldInvokeMethodTargetClassGivenFlipBeanAnnotationWithMultipleConditionsEvaluatingToTrueIsProvided(){
+        String output = testClientFlipBeanSpringComponentSource.html();
+        assertEquals("<HTML></HTML>", output);
+    }
+
+    @Test
+    public void shouldNotInvokeMethodTargetClassGivenFlipBeanAnnotationWithConditionEvaluatingToFalseIsProvided(){
+        String output = testClientFlipBeanSpringComponentSource.identity("identity");
+        assertEquals("identity", output);
     }
 }
