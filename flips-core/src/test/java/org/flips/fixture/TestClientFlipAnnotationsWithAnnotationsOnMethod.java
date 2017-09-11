@@ -1,10 +1,9 @@
 package org.flips.fixture;
 
-import org.flips.annotation.FlipOff;
-import org.flips.annotation.FlipOnDateTime;
-import org.flips.annotation.FlipOnEnvironmentProperty;
-import org.flips.annotation.FlipOnProfiles;
+import org.flips.annotation.*;
 import org.springframework.stereotype.Component;
+
+import java.time.DayOfWeek;
 
 @Component
 public class TestClientFlipAnnotationsWithAnnotationsOnMethod {
@@ -15,21 +14,21 @@ public class TestClientFlipAnnotationsWithAnnotationsOnMethod {
     }
 
     @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
-    public void pastDateFeature(){
+    public void featureWithCurrentDtGtProvidedDt(){
     }
 
     @FlipOnDateTime(cutoffDateTimeProperty = "future.feature.date")
-    public void futureDateFeature(){
+    public void featureWithCurrentDtLtProvidedDt(){
     }
 
     @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     @FlipOnEnvironmentProperty(property = "feature.disabled")
-    public void pastDateFeatureWithDisabledSpringProperty(){
+    public void featureWithCurrentDtGtProvidedDtWithDisabledSpringProperty(){
     }
 
     @FlipOnDateTime(cutoffDateTimeProperty = "past.feature.date")
     @FlipOnEnvironmentProperty(property = "feature.enabled")
-    public void pastDateFeatureWithEnabledSpringProperty(){
+    public void featureWithCurrentDtLtProvidedDtWithEnabledSpringProperty(){
     }
 
     @FlipOnProfiles(activeProfiles = {"dev", "qa"})
@@ -47,5 +46,15 @@ public class TestClientFlipAnnotationsWithAnnotationsOnMethod {
     @FlipOnEnvironmentProperty(property = "feature.enabled")
     @FlipOff
     public void featureWithFlipOffAndConditionBasedAnnotations(){
+    }
+
+    @FlipOnDaysOfWeek(weekDays = {DayOfWeek.MONDAY,
+                                  DayOfWeek.TUESDAY,
+                                  DayOfWeek.WEDNESDAY,
+                                  DayOfWeek.THURSDAY,
+                                  DayOfWeek.FRIDAY,
+                                  DayOfWeek.SATURDAY,
+                                  DayOfWeek.SUNDAY})
+    public void featureWithDayOfWeekConditionBasedAnnotation(){
     }
 }

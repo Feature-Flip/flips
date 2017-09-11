@@ -98,7 +98,7 @@ public class FlipAnnotationsStore {
         return applicationContext.getBeanDefinitionNames();
     }
 
-    class MethodConditionEvaluator {
+    static class MethodConditionEvaluator {
         private Method method;
         private FlipConditionEvaluator flipConditionEvaluator;
 

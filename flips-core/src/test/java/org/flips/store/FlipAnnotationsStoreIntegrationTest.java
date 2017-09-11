@@ -34,7 +34,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenFeatureIsSetWithPastCutoffDateTimeFlipCondition() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithCurrentDtGtProvidedDt");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
@@ -42,7 +42,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetWithFutureCutoffDateTimeFlipCondition() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("futureDateFeature");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithCurrentDtLtProvidedDt");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -50,7 +50,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureDisabledGivenFeatureIsSetWithPastCutoffDateTimeFlipConditionAndFeaturePropertyIsDisabled() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeatureWithDisabledSpringProperty");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithCurrentDtGtProvidedDtWithDisabledSpringProperty");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
@@ -58,7 +58,7 @@ public class FlipAnnotationsStoreIntegrationTest {
 
     @Test
     public void shouldReturnFeatureEnabledGivenFeatureIsSetWithPastCutoffDateTimeFlipConditionAndFeaturePropertyIsEnabled() throws Exception {
-        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("pastDateFeatureWithEnabledSpringProperty");
+        Method method  = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithCurrentDtLtProvidedDtWithEnabledSpringProperty");
         boolean result = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(true, result);
@@ -113,7 +113,7 @@ public class FlipAnnotationsStoreIntegrationTest {
     }
 
     @Test
-    public void shouldReturnFeatureWithSameNameInDifferentClassDisabledGivenFeatureIsSetToDisabledWith() throws Exception {
+    public void shouldReturnFeatureWithSameNameInDifferentClassDisabledGivenFeatureIsSetToDisabled() throws Exception {
         Method method   = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithSameMethodNameInDifferentClass");
         boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
 
@@ -121,10 +121,18 @@ public class FlipAnnotationsStoreIntegrationTest {
     }
 
     @Test
-    public void shouldReturnFeatureDisabledGivenFeatureIsDisabled() throws Exception {
+    public void shouldReturnFeatureDisabledGivenFeatureIsDisabledByEvaluatingAllOfTheConditions() throws Exception {
         Method method   = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithFlipOffAndConditionBasedAnnotations");
         boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
 
         assertEquals(false, result);
+    }
+
+    @Test
+    public void shouldReturnFeatureEnabledGivenFeatureWithDayOfWeekEvaluatesToTrue() throws Exception{
+        Method method   = TestClientFlipAnnotationsWithAnnotationsOnMethod.class.getMethod("featureWithDayOfWeekConditionBasedAnnotation");
+        boolean result  = flipAnnotationsStore.isFeatureEnabled(method);
+
+        assertEquals(true, result);
     }
 }

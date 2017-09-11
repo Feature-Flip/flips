@@ -2,13 +2,13 @@ package org.flips.condition;
 
 import org.flips.model.FeatureContext;
 import org.flips.model.FlipAnnotationAttributes;
+import org.flips.utils.DateTimeUtils;
 import org.flips.utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 
@@ -16,8 +16,6 @@ import java.time.format.DateTimeParseException;
 public class DateTimeFlipCondition implements FlipCondition {
 
     private static final Logger logger = LoggerFactory.getLogger(DateTimeFlipCondition.class);
-
-    private static final ZoneId UTC  = ZoneId.of("UTC");
 
     @Override
     public boolean evaluateCondition(FeatureContext featureContext,
@@ -29,7 +27,7 @@ public class DateTimeFlipCondition implements FlipCondition {
         String dateTime         = featureContext.getPropertyValueOrDefault(dateTimeProperty, String.class, "");
         ValidationUtils.requireNonEmpty(dateTime, dateTimeProperty + " containing datetime can not be NULL or EMPTY when using @FlipOnDateTime");
 
-        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(dateTime), ZonedDateTime.now(UTC));
+        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(dateTime), DateTimeUtils.currentTime());
     }
 
     private boolean isCurrentDateTimeAfterOrEqualCutoffDateTime(ZonedDateTime cutoffDateTime, ZonedDateTime currentUtcTime) {
@@ -40,7 +38,7 @@ public class DateTimeFlipCondition implements FlipCondition {
     private ZonedDateTime getCutoffDateTime(String datetime){
         logger.info("DateTimeFlipCondition: parsing {}", datetime);
         try{
-            return OffsetDateTime.parse(datetime).atZoneSameInstant(UTC);
+            return OffsetDateTime.parse(datetime).atZoneSameInstant(DateTimeUtils.UTC);
         }
         catch (DateTimeParseException e){
             logger.error("Could not parse " + datetime + ", expected format yyyy-MM-ddTHH:mm:ssZ");
