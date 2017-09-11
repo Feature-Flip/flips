@@ -27,7 +27,7 @@ public class DateTimeFlipCondition implements FlipCondition {
         String dateTime         = featureContext.getPropertyValueOrDefault(dateTimeProperty, String.class, "");
         ValidationUtils.requireNonEmpty(dateTime, dateTimeProperty + " containing datetime can not be NULL or EMPTY when using @FlipOnDateTime");
 
-        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(dateTime), DateTimeUtils.currentTime());
+        return isCurrentDateTimeAfterOrEqualCutoffDateTime(getCutoffDateTime(dateTime), DateTimeUtils.getCurrentTime());
     }
 
     private boolean isCurrentDateTimeAfterOrEqualCutoffDateTime(ZonedDateTime cutoffDateTime, ZonedDateTime currentUtcTime) {

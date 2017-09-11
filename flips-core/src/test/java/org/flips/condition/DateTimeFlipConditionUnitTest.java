@@ -31,7 +31,7 @@ public class DateTimeFlipConditionUnitTest {
 
         when(flipAnnotationAttributes.getAttributeValue("cutoffDateTimeProperty", "")).thenReturn(cutoffDateTimeProperty);
         when(featureContext.getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "")).thenReturn("2015-02-05T02:05:17+00:00");
-        PowerMockito.when(DateTimeUtils.currentTime()).thenReturn(ZonedDateTime.now(UTC));
+        PowerMockito.when(DateTimeUtils.getCurrentTime()).thenReturn(ZonedDateTime.now(UTC));
 
         DateTimeFlipCondition condition = new DateTimeFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -41,7 +41,7 @@ public class DateTimeFlipConditionUnitTest {
         verify(featureContext).getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "");
 
         PowerMockito.verifyStatic();
-        DateTimeUtils.currentTime();
+        DateTimeUtils.getCurrentTime();
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DateTimeFlipConditionUnitTest {
 
         when(flipAnnotationAttributes.getAttributeValue("cutoffDateTimeProperty", "")).thenReturn(cutoffDateTimeProperty);
         when(featureContext.getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "")).thenReturn("2015-02-05T02:05:17+00:00");
-        PowerMockito.when(DateTimeUtils.currentTime()).thenReturn(OffsetDateTime.parse("2015-02-05T02:05:17+00:00").atZoneSameInstant(DateTimeUtils.UTC));
+        PowerMockito.when(DateTimeUtils.getCurrentTime()).thenReturn(OffsetDateTime.parse("2015-02-05T02:05:17+00:00").atZoneSameInstant(DateTimeUtils.UTC));
 
         DateTimeFlipCondition condition = new DateTimeFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -64,7 +64,7 @@ public class DateTimeFlipConditionUnitTest {
         verify(featureContext).getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "");
 
         PowerMockito.verifyStatic();
-        DateTimeUtils.currentTime();
+        DateTimeUtils.getCurrentTime();
     }
 
     @Test
@@ -77,7 +77,7 @@ public class DateTimeFlipConditionUnitTest {
 
         when(flipAnnotationAttributes.getAttributeValue("cutoffDateTimeProperty", "")).thenReturn(cutoffDateTimeProperty);
         when(featureContext.getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "")).thenReturn(ZonedDateTime.now().plusDays(2).toInstant().toString());
-        PowerMockito.when(DateTimeUtils.currentTime()).thenReturn(ZonedDateTime.now(UTC));
+        PowerMockito.when(DateTimeUtils.getCurrentTime()).thenReturn(ZonedDateTime.now(UTC));
 
         DateTimeFlipCondition condition = new DateTimeFlipCondition();
         boolean result = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -87,7 +87,7 @@ public class DateTimeFlipConditionUnitTest {
         verify(featureContext).getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "");
 
         PowerMockito.verifyStatic();
-        DateTimeUtils.currentTime();
+        DateTimeUtils.getCurrentTime();
     }
 
     @Test(expected = DateTimeParseException.class)
@@ -99,7 +99,7 @@ public class DateTimeFlipConditionUnitTest {
         PowerMockito.mockStatic(DateTimeUtils.class);
         when(flipAnnotationAttributes.getAttributeValue("cutoffDateTimeProperty", "")).thenReturn(cutoffDateTimeProperty);
         when(featureContext.getPropertyValueOrDefault(cutoffDateTimeProperty, String.class, "")).thenReturn("2014-01-02");
-        PowerMockito.when(DateTimeUtils.currentTime()).thenReturn(ZonedDateTime.now(UTC));
+        PowerMockito.when(DateTimeUtils.getCurrentTime()).thenReturn(ZonedDateTime.now(UTC));
 
         DateTimeFlipCondition condition = new DateTimeFlipCondition();
         condition.evaluateCondition(featureContext, flipAnnotationAttributes);

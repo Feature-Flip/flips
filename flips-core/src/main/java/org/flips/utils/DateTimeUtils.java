@@ -12,11 +12,11 @@ public final class DateTimeUtils {
         throw new AssertionError("No DateTimeUtils instances for you!");
     }
 
-    public static ZonedDateTime currentTime(){
+    public static ZonedDateTime getCurrentTime(){
         return ZonedDateTime.now(UTC);
     }
 
-    public static DayOfWeek dayOfWeek(){
-        return currentTime().getDayOfWeek();
+    public static DayOfWeek getDayOfWeek(){
+        return getCurrentTime().getDayOfWeek();
     }
 }

@@ -20,7 +20,7 @@ public class DayOfWeekFlipCondition implements FlipCondition {
     @Override
     public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
         DayOfWeek[] enabledOnDaysOfWeek = (DayOfWeek[])flipAnnotationAttributes.getAttributeValue("daysOfWeek", Utils.emptyArray(DayOfWeek.class));
-        DayOfWeek currentDay            = DateTimeUtils.dayOfWeek();
+        DayOfWeek currentDay            = DateTimeUtils.getDayOfWeek();
 
         ValidationUtils.requireNonEmpty(enabledOnDaysOfWeek, "daysOfWeek element can not be NULL or EMPTY when using @FlipOnDaysOfWeek");
 

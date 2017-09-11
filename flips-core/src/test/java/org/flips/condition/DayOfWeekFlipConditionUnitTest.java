@@ -28,7 +28,7 @@ public class DayOfWeekFlipConditionUnitTest {
         PowerMockito.mockStatic(DateTimeUtils.class);
 
         when(flipAnnotationAttributes.getAttributeValue("daysOfWeek", empty)).thenReturn(new DayOfWeek[]{DayOfWeek.MONDAY, DayOfWeek.TUESDAY});
-        PowerMockito.when(DateTimeUtils.dayOfWeek()).thenReturn(DayOfWeek.MONDAY);
+        PowerMockito.when(DateTimeUtils.getDayOfWeek()).thenReturn(DayOfWeek.MONDAY);
 
         DayOfWeekFlipCondition condition = new DayOfWeekFlipCondition();
         boolean result                   = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -37,7 +37,7 @@ public class DayOfWeekFlipConditionUnitTest {
         verify(flipAnnotationAttributes).getAttributeValue("daysOfWeek", empty);
 
         PowerMockito.verifyStatic();
-        DateTimeUtils.dayOfWeek();
+        DateTimeUtils.getDayOfWeek();
     }
 
     @Test
@@ -49,7 +49,7 @@ public class DayOfWeekFlipConditionUnitTest {
         PowerMockito.mockStatic(DateTimeUtils.class);
 
         when(flipAnnotationAttributes.getAttributeValue("daysOfWeek", empty)).thenReturn(new DayOfWeek[]{DayOfWeek.MONDAY, DayOfWeek.TUESDAY});
-        PowerMockito.when(DateTimeUtils.dayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
+        PowerMockito.when(DateTimeUtils.getDayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
 
         DayOfWeekFlipCondition condition = new DayOfWeekFlipCondition();
         boolean result                   = condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -58,7 +58,7 @@ public class DayOfWeekFlipConditionUnitTest {
         verify(flipAnnotationAttributes).getAttributeValue("daysOfWeek", empty);
 
         PowerMockito.verifyStatic();
-        DateTimeUtils.dayOfWeek();
+        DateTimeUtils.getDayOfWeek();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -70,7 +70,7 @@ public class DayOfWeekFlipConditionUnitTest {
         PowerMockito.mockStatic(DateTimeUtils.class);
 
         when(flipAnnotationAttributes.getAttributeValue("daysOfWeek", empty)).thenReturn(new DayOfWeek[]{});
-        PowerMockito.when(DateTimeUtils.dayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
+        PowerMockito.when(DateTimeUtils.getDayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
 
         DayOfWeekFlipCondition condition = new DayOfWeekFlipCondition();
         condition.evaluateCondition(featureContext, flipAnnotationAttributes);
@@ -85,7 +85,7 @@ public class DayOfWeekFlipConditionUnitTest {
         PowerMockito.mockStatic(DateTimeUtils.class);
 
         when(flipAnnotationAttributes.getAttributeValue("daysOfWeek", empty)).thenReturn(null);
-        PowerMockito.when(DateTimeUtils.dayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
+        PowerMockito.when(DateTimeUtils.getDayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
 
         DayOfWeekFlipCondition condition = new DayOfWeekFlipCondition();
         condition.evaluateCondition(featureContext, flipAnnotationAttributes);
