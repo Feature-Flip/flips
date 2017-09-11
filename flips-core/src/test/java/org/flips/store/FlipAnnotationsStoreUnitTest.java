@@ -4,9 +4,9 @@ import org.flips.model.FlipConditionEvaluator;
 import org.flips.model.FlipConditionEvaluatorFactory;
 import org.flips.processor.FlipAnnotationProcessor;
 import org.flips.utils.Utils;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
@@ -30,7 +30,6 @@ public class FlipAnnotationsStoreUnitTest {
         }
     }
 
-    @InjectMocks
     private FlipAnnotationsStore            flipAnnotationsStore;
 
     @Mock
@@ -41,6 +40,15 @@ public class FlipAnnotationsStoreUnitTest {
 
     @Mock
     private FlipConditionEvaluatorFactory   flipConditionEvaluatorFactory;
+
+    @Before
+    public void setUp(){
+        flipAnnotationsStore = new FlipAnnotationsStore(applicationContext,
+                                                        flipAnnotationProcessor,
+                                                        flipConditionEvaluatorFactory,
+                                                        "org.springframework"
+                                                        );
+    }
 
     @Test
     public void shouldNotStoreFlipAnnotationsGivenNoBeansWereAnnotatedWithFlipsAnnotation(){
