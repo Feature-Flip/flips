@@ -19,12 +19,12 @@ public class DayOfWeekFlipCondition implements FlipCondition {
 
     @Override
     public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
-        DayOfWeek[] enabledOnWeekDays = (DayOfWeek[])flipAnnotationAttributes.getAttributeValue("weekDays", Utils.emptyArray(DayOfWeek.class));
-        DayOfWeek currentDay          = DateTimeUtils.dayOfWeek();
+        DayOfWeek[] enabledOnDaysOfWeek = (DayOfWeek[])flipAnnotationAttributes.getAttributeValue("daysOfWeek", Utils.emptyArray(DayOfWeek.class));
+        DayOfWeek currentDay            = DateTimeUtils.dayOfWeek();
 
-        ValidationUtils.requireNonEmpty(enabledOnWeekDays, "weekDays element can not be NULL or EMPTY when using @FlipOnDaysOfWeek");
+        ValidationUtils.requireNonEmpty(enabledOnDaysOfWeek, "daysOfWeek element can not be NULL or EMPTY when using @FlipOnDaysOfWeek");
 
-        logger.info("DayOfWeekFlipCondition: Enabled on days {}, current day {}", enabledOnWeekDays, currentDay);
-        return Arrays.asList(enabledOnWeekDays).contains(currentDay);
+        logger.info("DayOfWeekFlipCondition: Enabled on days {}, current day {}", enabledOnDaysOfWeek, currentDay);
+        return Arrays.asList(enabledOnDaysOfWeek).contains(currentDay);
     }
 }

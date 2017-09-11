@@ -48,7 +48,7 @@ public class TestClientFlipAnnotationsWithAnnotationsOnMethod {
     public void featureWithFlipOffAndConditionBasedAnnotations(){
     }
 
-    @FlipOnDaysOfWeek(weekDays = {DayOfWeek.MONDAY,
+    @FlipOnDaysOfWeek(daysOfWeek = {DayOfWeek.MONDAY,
                                   DayOfWeek.TUESDAY,
                                   DayOfWeek.WEDNESDAY,
                                   DayOfWeek.THURSDAY,

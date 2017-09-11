@@ -4,5 +4,5 @@ import java.time.DayOfWeek;
 
 public @interface FlipOnDaysOfWeek {
 
-    DayOfWeek[] weekDays();
+    DayOfWeek[] daysOfWeek();
 }
