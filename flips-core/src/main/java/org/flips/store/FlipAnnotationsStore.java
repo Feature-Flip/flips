@@ -75,6 +75,7 @@ public class FlipAnnotationsStore {
 
     private List<MethodConditionEvaluator> getAllMethodsWithConditionEvaluator(Class<?> clazz){
         if ( !isPackageExcludedFromScan(clazz.getPackage().getName()) ) {
+            logger.debug("Scanning class {} for flip annotations", clazz.getName());
             return Arrays.stream (clazz.getDeclaredMethods())
                   .map           (Utils::getAccessibleMethod)
                   .filter        (accessibleMethod         -> accessibleMethod != null)
