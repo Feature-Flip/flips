@@ -22,8 +22,9 @@ public class SpringEnvironmentPropertyFlipCondition implements FlipCondition {
         ValidationUtils.requireNonEmpty(property,      "property element can not be NULL or EMPTY when using @FlipOnEnvironmentProperty");
         ValidationUtils.requireNonEmpty(expectedValue, "expectedValue element can not be NULL or EMPTY when using @FlipOnEnvironmentProperty");
 
-        logger.info("SpringEnvironmentPropertyFlipCondition: property {}, expectedValue {}", property, expectedValue);
         String propertyValue = featureContext.getPropertyValueOrDefault(property, String.class, "");
+        logger.info("SpringEnvironmentPropertyFlipCondition: property {}, expectedValue {}, actualValue {}", property, expectedValue, propertyValue);
+
         return propertyValue.equalsIgnoreCase(expectedValue);
     }
 }
