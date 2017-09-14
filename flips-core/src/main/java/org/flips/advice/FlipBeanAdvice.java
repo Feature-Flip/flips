@@ -11,6 +11,8 @@ import org.flips.exception.FlipBeanFailedException;
 import org.flips.store.FlipAnnotationsStore;
 import org.flips.utils.AnnotationUtils;
 import org.flips.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
@@ -27,6 +29,8 @@ public class FlipBeanAdvice {
     private ApplicationContext applicationContext;
 
     private FlipAnnotationsStore flipAnnotationsStore;
+
+    private static final Logger logger = LoggerFactory.getLogger(FlipBeanAdvice.class);
 
     @Autowired
     public FlipBeanAdvice(ApplicationContext applicationContext, @Lazy FlipAnnotationsStore flipAnnotationsStore) {
@@ -46,6 +50,7 @@ public class FlipBeanAdvice {
 
         if ( shouldFlipBean(method, tobeFlippedWith) ) {
             Method targetMethod = getMethodOnTargetBean(method, tobeFlippedWith);
+            logger.info("Flipping {} of {} with {} of {}", method.getName(), method.getDeclaringClass().getName(), targetMethod.getName(), targetMethod.getDeclaringClass().getName());
             return invokeMethod(joinPoint, tobeFlippedWith, targetMethod);
         }
 

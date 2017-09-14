@@ -55,7 +55,6 @@ public class FlipAnnotationsStore {
 
             store.putAll(flipConditionEvaluatorMap);
         }
-
         logger.debug("Completed building FlipAnnotationsStore {}", store);
     }
 
