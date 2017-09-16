@@ -7,8 +7,7 @@
   <version>1.0-SNAPSHOT</version>
 
   <description>
-    Flips is a library for Java which helps in implementing Feature Toggles. Features could be services, behaviors, endpoints
-    can be switched ON/OFF using Flips
+    Flips is a Java library for implementing feature toggles.
   </description>
 
   <packaging>pom</packaging>
