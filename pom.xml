@@ -31,6 +31,11 @@
     </license>
   </licenses>
 
+  <issueManagement>
+    <url>https://github.com/Feature-Flip/flips/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
