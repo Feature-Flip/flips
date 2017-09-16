@@ -6,14 +6,30 @@
   <artifactId>flips</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <description>
-    Flips is a Java library for implementing feature toggles.
-  </description>
-
   <packaging>pom</packaging>
 
-  <name>Feature Switching for Java</name>
-  <url>http://maven.apache.org</url>
+  <name>Feature Flips for Java</name>
+  <url>https://github.com/Feature-Flip/flips</url>
+  <description>
+    Flips is a Feature Toggle library for Java. Features can be flipped ON / OFF based on various conditions,
+    or a combination of different conditions.
+    Flips provide various annotations FlipOnDateTime, FlipOnProfiles etc. to flip ON / OFF a feature.
+  </description>
+
+  <scm>
+    <connection>scm:git:git@github.com:Feature-Flip/flips.git</connection>
+    <developerConnection>scm:git:git@github.com:Feature-Flip/flips.git</developerConnection>
+    <url>git@github.com:Feature-Flip/flips.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -159,6 +175,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>

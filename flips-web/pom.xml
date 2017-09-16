@@ -5,13 +5,14 @@
         <groupId>com.github.flips</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>flips-web</artifactId>
     <packaging>jar</packaging>
 
-    <name>flips-spring-describe</name>
-    <url>http://maven.apache.org</url>
+    <name>flips-web</name>
+    <url>https://github.com/Feature-Flip/flips</url>
+    <description>Flips Web framework, provides a Controller Advice and a Flip Description Controller</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
