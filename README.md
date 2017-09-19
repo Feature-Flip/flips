@@ -245,6 +245,8 @@ Condition class needs to implement FlipCondition and **MUST be a Spring Componen
 3. Push to the branch (git push origin my-new-feature)
 4. Create new Pull Request
 
+## Share feedback
+Please use Github [issues](https://github.com/Feature-Flip/flips/issues) to share feedback, feature suggestions and report issues.
 
 ## Credits
 1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing his guidance.
