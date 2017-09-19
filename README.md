@@ -29,7 +29,7 @@ Otherwise flips-core,
   </dependency>
 ```
 
-Flips provides various annotations to flip a feature. *Let's have a quick walkthrough of all the annotations - *
+Flips provides various annotations to flip a feature. Let's have a quick walkthrough of all the annotations - 
 
 **@FlipOff** is used to flip a feature off. 
 
