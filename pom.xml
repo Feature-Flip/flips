@@ -30,6 +30,14 @@
     </license>
   </licenses>
 
+  <developers>
+      <developer>
+          <name>Sarthak Makhija</name>
+          <email>sarthak.makhija@gmail.com</email>
+          <url>https://github.com/SarthakMakhija/</url>
+      </developer>
+  </developers>
+
   <issueManagement>
     <url>https://github.com/Feature-Flip/flips/issues</url>
     <system>GitHub Issues</system>
