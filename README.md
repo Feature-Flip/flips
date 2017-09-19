@@ -11,6 +11,24 @@ The idea behind Flips is to let the users implements toggle with minimum configu
 Sample projects can be found [here](https://github.com/SarthakMakhija/flips-samples).
 
 ## Getting Started
+Include the necessary dependency -
+```
+  <dependency>
+    <groupId>com.github.feature-flip</groupId>
+    <artifactId>flips-web</artifactId>
+    <version>1.0.1</version>
+  </dependency>
+```
+Or,
+
+```
+  <dependency>
+    <groupId>com.github.feature-flip</groupId>
+    <artifactId>flips-core</artifactId>
+    <version>1.0.1</version>
+  </dependency>
+```
+
 Flips provides various annotations to flip a feature, either ON or OFF. *Let's have a quick walkthrough of all the annotations and their behavior* - 
 
 **@FlipOff** is used to flip a feature off. 
@@ -195,8 +213,29 @@ In order to bring all Flips related annotations in effect, FlipConfiguration nee
     ```
 you will need to import FlipWebContextConfiguration as mentioned above. Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/ApplicationConfig.java). 
 
+8. Is there a way to create custom annotation(s) to flip a feature ?
+**Yes**. You can create a custom annotation to meet your requirements. Create a custom annotation at METHOD level which has a meta-annotation of type @FlipOnOff.
+    
+    ```
+      @Target({ElementType.METHOD})
+      @Retention(RetentionPolicy.RUNTIME)
+      @FlipOnOff(value = MyCustomCondition.class)
+      public @interface MyCustomAnnotation {
+      }
+    ```
+As a part of this annotation, specify the condition which will evaluate the result of this annotation.
 
+    ```
+    @Component
+    public class MyCustomCondition implements FlipCondition {
 
+      @Override
+      public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
+        return false;
+      }
+    }
+    ```
+Condition class needs to implement FlipCondition and **MUST be a Spring Component**. This is it !!
 
 ## Want to contribute?
 1. Fork it
