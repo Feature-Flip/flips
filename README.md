@@ -120,4 +120,43 @@ class EmailSender{
 ```
 will flip the invocation of sendEmail method with the one (having exactly same signature) defined in **SendGridEmailSender**.
 
+## FAQs
+1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD after a given date.
+Yes, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
+
+    **Usage**
+
+    ```
+    @Component
+    class EmailSender{
+
+      @FlipOnProfiles(activeProfiles = "PROD")
+      @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
+      public void sendEmail(EmailMessage emailMessage){
+      }
+    }
+    ```
+
+
+
+
+
+
+
+## Want to contribute?
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+3. Push to the branch (git push origin my-new-feature)
+4. Create new Pull Request
+
+
+## Credits
+1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing guidance
+
+
+
+
+
+
 
