@@ -153,6 +153,21 @@ this will throw FeatureNotEnabledException is either of the conditions evaluate 
     ```
 this will flip the implementation of sendEmail with the same method defined in ```SendGridEmailSender```if active profile is DEV.
 
+3. What date format is accepted in FlipOnDateTime ?  
+**ISO-8601**. 
+
+    **Usage**
+
+    ```
+    @Component
+    class EmailSender{
+
+      @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
+      public void sendEmail(EmailMessage emailMessage){
+      }
+    }
+    ```
+Assuming, today is 20th Sep 2018, one could set **sendemail.feature.active.after** to a value equal to before 20th Sep 2018. sendemail.feature.active.after=2018-09-16T00:00:00Z
 
 
 
