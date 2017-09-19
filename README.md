@@ -122,7 +122,7 @@ will flip the invocation of sendEmail method with the one (having exactly same s
 
 ## FAQs
 1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD after a given date.
-Yes, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
+**Yes**, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
 
     **Usage**
 
@@ -136,8 +136,24 @@ Yes, these annotations can be combined. Currently, such combinations are treated
       }
     }
     ```
+this will throw FeatureNotEnabledException is either of the conditions evaluate to FALSE
 
+2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.
+**Yes**, @FlipBean can be used with conditions. If used with conditions, flip bean would be activated if all the conditions evaluate to TRUE
 
+    **Usage**
+
+    ```
+    @Component
+    class EmailSender{
+
+      @FlipBean(with=SendGridEmailSender.class)
+      @FlipOnProfiles(activeProfiles = "DEV")
+      public void sendEmail(EmailMessage emailMessage){
+      }
+    }
+    ```
+this will flip the implementation of sendEmail with the same method defined in ```SendGridEmailSender```if active profile is DEV.
 
 
 
