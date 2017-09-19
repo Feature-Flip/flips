@@ -225,16 +225,16 @@ you will need to import FlipWebContextConfiguration as mentioned above. Please r
     ```
 As a part of this annotation, specify the condition which will evaluate the result of this annotation.
 
-    ```
-    @Component
-    public class MyCustomCondition implements FlipCondition {
+      ```
+      @Component
+      public class MyCustomCondition implements FlipCondition {
 
-      @Override
-      public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
-        return false;
+        @Override
+        public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
+          return false;
+        }
       }
-    }
-    ```
+      ```
 Condition class needs to implement FlipCondition and **MUST be a Spring Component**. This is it !!
 
 ## Want to contribute?
