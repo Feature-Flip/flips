@@ -11,9 +11,7 @@ The idea behind Flips is to let the users implements toggle with minimum configu
 Sample projects can be found [here](https://github.com/SarthakMakhija/flips-samples).
 
 ## Getting Started
-Flips provides various annotations to flip a feature, either ON or OFF.
-
-*Let's have a quick walkthrough of all the annotations and their behavior* - 
+Flips provides various annotations to flip a feature, either ON or OFF. *Let's have a quick walkthrough of all the annotations and their behavior* - 
 
 **@FlipOff** is used to flip a feature off. 
 
