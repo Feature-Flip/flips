@@ -169,6 +169,32 @@ this will flip the implementation of sendEmail with the same method defined in `
     ```
 Assuming, today is 20th Sep 2018, one could set **sendemail.feature.active.after** to a value equal to before 20th Sep 2018. sendemail.feature.active.after=2018-09-16T00:00:00Z
 
+4. What happens on invoking a feature which is disabled ?  
+**FeatureNotEnabledException** is thrown if a disabled feature is invoked. In case of a WEB application, one could use 
+flips-web dependency which also provides ```ControllerAdvice``` meant to handle this exception. It returns a default response and a status code of 501.
+
+5. Is it possible for the client of this library to override the response returned by ```ControllerAdvice``` ?  
+**Yes**, this is doable. You can register a ```ControllerAdvice``` with an exception handler meant for handling **FeatureNotEnabledException**. Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/tree/master/flips-sample-spring-boot/src/main/java/com/finder/article/advice).
+
+6. What should be the signature of target method while using @FlipBean
+The target method should have exactly the same signature as the method which is annotated with @FlipBean annotation. Please refer "getArticleStatisticsByYear" method here [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/controller/ArticleController.java).
+
+7. How do I load Spring Configuration related to Flips ?
+In order to bring all Flips related annotations in effect, FlipConfiguration needs to be imported. 
+
+    **Usage**
+
+    ```
+    @SpringBootApplication
+    @Import(FlipWebContextConfiguration.class)
+    class ApplicationConfig{
+      public static void main(String[] args) {
+        SpringApplication.run(ApplicationConfig.class, args);
+      }
+    }
+    ```
+you will need to import FlipWebContextConfiguration as mentioned above. Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/ApplicationConfig.java). 
+
 
 
 
