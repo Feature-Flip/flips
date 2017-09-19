@@ -28,7 +28,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked. 
+Feature ```sendEmail``` is always DISABLED.
 
 **@FlipOnEnvironmentProperty** is used to flip a feature based on the value of environment property.
 
@@ -43,7 +43,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked and *feature.send.email* property is set to a value other than true in application.properties
+Feature ```sendEmail``` is enabled if the property **feature.send.email** is set to true.
 
 **@FlipOnProfiles** is used to flip a feature based on the envinronment in which the application is running.
 
@@ -58,7 +58,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked and the current spring profile is *neither dev nor qa*.
+Feature ```sendEmail``` is enabled if the current profile is either **dev or qa**.
 
 **@FlipOnDaysOfWeek** is used to flip a feature based on the day of the week.
 
@@ -73,7 +73,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked and current day is other than *MONDAY or TUESDAY*
+Feature ```sendEmail``` is enabled if current day is either **MONDAY or TUESDAY**.
 
 **@FlipOnDateTime** is used to flip a feature based on date and time.
 
@@ -88,7 +88,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked and *default.date.enabled* property is set to a value which is lesser than current date time in UTC. In order to use @FlipOnDateTime, cutoffDateTimeProperty should be set in **ISO8601** format
+Feature ```sendEmail``` is enabled if current datetime is equal to or greater than the value defined by the **default.date.enabled** property.
 
 **@FlipOnSpringExpression** is used to flip a feature based on the evaluation of spring expression.
 
@@ -103,7 +103,7 @@ class EmailSender{
   }
 }
 ```
-*FeatureNotEnabledException* is thrown if sendEmail in invoked since the expression evaluates to FALSE.
+Feature ```sendEmail``` is enabled if the expression evaluates to TRUE.
 
 **@FlipBean** is used to flip the invocation of a method with another method.
 
@@ -118,7 +118,7 @@ class EmailSender{
   }
 }
 ```
-will flip the invocation of sendEmail method with the one (having exactly same signature) defined in **SendGridEmailSender**.
+will flip the invocation of ```sendEmail``` method with the one (having exactly same signature) defined in **SendGridEmailSender**.
 
 ## FAQs
 1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD after a given date.
