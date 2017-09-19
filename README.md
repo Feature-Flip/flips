@@ -136,7 +136,7 @@ will flip the invocation of ```sendEmail``` method with the one (having exactly 
     ```
 this will throw FeatureNotEnabledException is either of the conditions evaluate to FALSE
 
-2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.
+2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.  
 **Yes**, @FlipBean can be used with conditions. If used with conditions, flip bean would be activated if all the conditions evaluate to TRUE
 
     **Usage**
