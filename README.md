@@ -187,7 +187,7 @@ class EmailSender{
 ```
 Assuming, today is 20th Sep 2018, one could set **sendemail.feature.active.after** to a value equal to before 20th Sep 2018. sendemail.feature.active.after=2018-09-16T00:00:00Z
 
-4. What happens on invoking a disabled feature ?
+4. What happens on invoking a disabled feature ?  
 **FeatureNotEnabledException** is thrown if a disabled feature is invoked. In case of a WEB application, one could use 
 flips-web dependency which also provides ```ControllerAdvice``` meant to handle this exception. It returns a default response and a status code of 501.
 
@@ -195,7 +195,7 @@ flips-web dependency which also provides ```ControllerAdvice``` meant to handle 
 **Yes**, this is doable. You can register your ```ControllerAdvice``` with an exception handler meant for handling **FeatureNotEnabledException**. 
 Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/tree/master/flips-sample-spring-boot/src/main/java/com/finder/article/advice).
 
-6. What should be the signature of target method while using @FlipBean
+6. What should be the signature of target method while using @FlipBean  
 The target method should have exactly the same signature as the method which is annotated with @FlipBean annotation.  
 Please refer "getArticleStatisticsByYear" method [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/controller/ArticleController.java).
 
