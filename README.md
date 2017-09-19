@@ -230,7 +230,8 @@ As a part of this annotation, specify the condition which will evaluate the resu
       public class MyCustomCondition implements FlipCondition {
 
         @Override
-        public boolean evaluateCondition(FeatureContext featureContext, FlipAnnotationAttributes flipAnnotationAttributes) {
+        public boolean evaluateCondition(FeatureContext featureContext, 
+                                         FlipAnnotationAttributes flipAnnotationAttributes) {
           return false;
         }
       }
