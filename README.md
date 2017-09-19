@@ -196,10 +196,10 @@ flips-web dependency which also provides ```ControllerAdvice``` meant to handle 
 Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/tree/master/flips-sample-spring-boot/src/main/java/com/finder/article/advice).
 
 6. What should be the signature of target method while using @FlipBean
-The target method should have exactly the same signature as the method which is annotated with @FlipBean annotation. 
+The target method should have exactly the same signature as the method which is annotated with @FlipBean annotation.  
 Please refer "getArticleStatisticsByYear" method [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/controller/ArticleController.java).
 
-7. How do I load Spring Configuration related to Flips ?
+7. How do I load Spring Configuration related to Flips ?  
 In order to bring all Flips related annotations in effect, FlipConfiguration needs to be imported. 
 
 **Usage**
@@ -216,7 +216,7 @@ class ApplicationConfig{
 you will need to import FlipWebContextConfiguration as mentioned above. 
 Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/ApplicationConfig.java). 
 
-8. Is there a way to create custom annotation(s) to flip a feature ?
+8. Is there a way to create custom annotation(s) to flip a feature ?  
 **Yes**. You can create a custom annotation to fit your use case. Create a custom annotation at METHOD level which has a meta-annotation of type @FlipOnOff.
     
 ```
