@@ -140,51 +140,51 @@ will flip the invocation of ```sendEmail``` method with the one (having exactly 
 1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD after a given date.
 **Yes**, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
 
-    **Usage**
+**Usage**
 
-    ```
-    @Component
-    class EmailSender{
+```
+@Component
+class EmailSender{
 
-      @FlipOnProfiles(activeProfiles = "PROD")
-      @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
-      public void sendEmail(EmailMessage emailMessage){
-      }
-    }
-    ```
+  @FlipOnProfiles(activeProfiles = "PROD")
+  @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
+  public void sendEmail(EmailMessage emailMessage){
+  }
+}
+```
 this will throw FeatureNotEnabledException is either of the conditions evaluate to FALSE
 
 2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.  
 **Yes**, @FlipBean can be used with conditions. If used with conditions, flip bean would be activated if all the conditions evaluate to TRUE
 
-    **Usage**
+**Usage**
 
-    ```
-    @Component
-    class EmailSender{
+```
+@Component
+class EmailSender{
 
-      @FlipBean(with=SendGridEmailSender.class)
-      @FlipOnProfiles(activeProfiles = "DEV")
-      public void sendEmail(EmailMessage emailMessage){
-      }
-    }
-    ```
+  @FlipBean(with=SendGridEmailSender.class)
+  @FlipOnProfiles(activeProfiles = "DEV")
+  public void sendEmail(EmailMessage emailMessage){
+  }
+}
+```
 this will flip the implementation of sendEmail with the same method defined in ```SendGridEmailSender```if active profile is DEV.
 
 3. What date format is accepted in FlipOnDateTime ?  
 **ISO-8601**. 
 
-    **Usage**
+**Usage**
 
-    ```
-    @Component
-    class EmailSender{
+```
+@Component
+class EmailSender{
 
-      @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
-      public void sendEmail(EmailMessage emailMessage){
-      }
-    }
-    ```
+  @FlipOnDateTime(cutoffDateTimeProperty = "sendemail.feature.active.after")
+  public void sendEmail(EmailMessage emailMessage){
+  }
+}
+```
 Assuming, today is 20th Sep 2018, one could set **sendemail.feature.active.after** to a value equal to before 20th Sep 2018. sendemail.feature.active.after=2018-09-16T00:00:00Z
 
 4. What happens on invoking a feature which is disabled ?  
@@ -200,42 +200,42 @@ The target method should have exactly the same signature as the method which is 
 7. How do I load Spring Configuration related to Flips ?
 In order to bring all Flips related annotations in effect, FlipConfiguration needs to be imported. 
 
-    **Usage**
+**Usage**
 
-    ```
-    @SpringBootApplication
-    @Import(FlipWebContextConfiguration.class)
-    class ApplicationConfig{
-      public static void main(String[] args) {
-        SpringApplication.run(ApplicationConfig.class, args);
-      }
-    }
-    ```
+```
+@SpringBootApplication
+@Import(FlipWebContextConfiguration.class)
+class ApplicationConfig{
+  public static void main(String[] args) {
+    SpringApplication.run(ApplicationConfig.class, args);
+  }
+}
+```
 you will need to import FlipWebContextConfiguration as mentioned above. Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/ApplicationConfig.java). 
 
 8. Is there a way to create custom annotation(s) to flip a feature ?
 **Yes**. You can create a custom annotation to meet your requirements. Create a custom annotation at METHOD level which has a meta-annotation of type @FlipOnOff.
     
-    ```
-      @Target({ElementType.METHOD})
-      @Retention(RetentionPolicy.RUNTIME)
-      @FlipOnOff(value = MyCustomCondition.class)
-      public @interface MyCustomAnnotation {
-      }
-    ```
+```
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@FlipOnOff(value = MyCustomCondition.class)
+public @interface MyCustomAnnotation {
+}
+```
 As a part of this annotation, specify the condition which will evaluate the result of this annotation.
 
-      ```
-      @Component
-      public class MyCustomCondition implements FlipCondition {
+```
+@Component
+public class MyCustomCondition implements FlipCondition {
 
-        @Override
-        public boolean evaluateCondition(FeatureContext featureContext, 
-                                         FlipAnnotationAttributes flipAnnotationAttributes) {
-          return false;
-        }
-      }
-      ```
+  @Override
+  public boolean evaluateCondition(FeatureContext featureContext, 
+                                   FlipAnnotationAttributes flipAnnotationAttributes) {
+    return false;
+  }
+}
+```
 Condition class needs to implement FlipCondition and **MUST be a Spring Component**. This is it !!
 
 ## Want to contribute?
@@ -247,11 +247,4 @@ Condition class needs to implement FlipCondition and **MUST be a Spring Componen
 
 
 ## Credits
-1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing guidance
-
-
-
-
-
-
-
+1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing his guidance.
