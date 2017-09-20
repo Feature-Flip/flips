@@ -166,7 +166,9 @@ Feature ```sendEmail``` is always DISABLED.
 
 
 ## FAQs
-1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD environment but after a given date.  
+
+**1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD environment but after a given date.**  
+
 **Yes**, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
 
 **Usage**
@@ -183,7 +185,8 @@ class EmailSender{
 ```
 this will throw FeatureNotEnabledException is either of the conditions evaluate to FALSE
 
-2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.  
+**2. Is there a way to flip a bean based on conditions ? Eg; I want a feature to be ```flipped with``` only in DEV.**  
+
 **Yes**, @FlipBean can be used with conditions. If used with conditions, flip bean will be activated if all the conditions evaluate to TRUE
 
 **Usage**
@@ -200,7 +203,8 @@ class EmailSender{
 ```
 this will flip the implementation of sendEmail with the same method defined in ```SendGridEmailSender```if active profile is DEV.
 
-3. What date format is accepted in FlipOnDateTime ?  
+**3. What date format is accepted in FlipOnDateTime ?**  
+
 **ISO-8601**. 
 
 **Usage**
@@ -216,19 +220,23 @@ class EmailSender{
 ```
 Assuming, today is 20th Sep 2018, one could set **sendemail.feature.active.after** to a value equal to before 20th Sep 2018. sendemail.feature.active.after=2018-09-16T00:00:00Z
 
-4. What happens on invoking a disabled feature ?  
+**4. What happens on invoking a disabled feature ?**  
+
 **FeatureNotEnabledException** is thrown if a disabled feature is invoked. In case of a WEB application, one could use 
 flips-web dependency which also provides ```ControllerAdvice``` meant to handle this exception. It returns a default response and a status code of 501.
 
-5. Is it possible for the client of this library to override the response returned by ```ControllerAdvice``` ?  
+**5. Is it possible for the client of this library to override the response returned by ```ControllerAdvice``` ?**  
+
 **Yes**, this is doable. You can register your ```ControllerAdvice``` with an exception handler meant for handling **FeatureNotEnabledException**. 
 Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/tree/master/flips-sample-spring-boot/src/main/java/com/finder/article/advice).
 
-6. What should be the signature of target method while using @FlipBean  
+**6. What should be the signature of target method while using @FlipBean**  
+
 The target method should have exactly the same signature as the method which is annotated with @FlipBean annotation.  
 Please refer "getArticleStatisticsByYear" method [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/controller/ArticleController.java).
 
-7. How do I load Spring Configuration related to Flips ?  
+**7. How do I load Spring Configuration related to Flips ?** 
+
 In order to bring all Flips related annotations in effect, FlipConfiguration needs to be imported. 
 
 **Usage**
@@ -245,7 +253,8 @@ class ApplicationConfig{
 you will need to import FlipWebContextConfiguration as mentioned above. 
 Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/blob/master/flips-sample-spring-boot/src/main/java/com/finder/article/ApplicationConfig.java). 
 
-8. Is there a way to create custom annotation(s) to flip a feature ?  
+**8. Is there a way to create custom annotation(s) to flip a feature ?**  
+
 **Yes**. You can create a custom annotation to fit your use case. Create a custom annotation at METHOD level which has a meta-annotation of type @FlipOnOff.
     
 ```java
@@ -270,8 +279,9 @@ public class MyCustomCondition implements FlipCondition {
 ```
 This ```Condition``` class needs to implement FlipCondition and **MUST be a Spring Component**. This is it !!
 
-9. How do I get to see all the methods which are annotated with Flip annotations along with their status ?  
-This funtionality is available in flips-web as a REST endpoint. You can hit **/describe/features** to see the features and their status.
+**9. How do I get to see all the methods which are annotated with Flip annotations along with their status ?**  
+
+This functionality is available in flips-web as a REST endpoint. You can hit **/describe/features** to see the features and their status.
 
 ## Want to contribute?
 1. Fork it
