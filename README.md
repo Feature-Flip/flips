@@ -7,10 +7,37 @@ Flips is an implementation of Feature Toggles pattern for Java. [Feature Toggles
 ## Why another library for feature toggle ?
 The idea behind Flips is to let the users implement toggles with minimum configuration and coding. This library is intended to work with Java8, Spring Core / Spring MVC / Spring Boot. 
 
+## Getting Started
+Following feature toggle is going to switch bean with same signature method to go live with feature on specific date time. 
+Property allows to define different datetime specific to ENV and in ISO 8601 format. 
+
+
+```java
+@Component
+class MyBean {
+
+    @FlipBean(with = AnotherBean.class)
+    @FlipOnDateTime(cutoffDateTimeProperty="datetime-property")
+    public List<Article> getLatestArticles(){
+        // OLD logic of getting latest articles
+    }
+}
+
+@Component
+class AnotherBean {
+  public List<Article> getLatestArticles(){
+      // NEW logic of getting latest articles
+  }
+}
+
+```
+
+
 ## Where do I get sample project(s) ?
 Sample projects can be found [here](https://github.com/SarthakMakhija/flips-samples).
 
-## Getting Started
+## Maven Configuration
+
 Include flips-web if the project is a WEB project -
 ```
   <dependency>
@@ -29,28 +56,15 @@ Otherwise flips-core,
   </dependency>
 ```
 
-Flips provides various annotations to flip a feature. Let's have a quick walkthrough of all the annotations - 
+## Detail Description of all Annotations
 
-**@FlipOff** is used to flip a feature off. 
-
-**Usage**
-
-```
-@Component
-class EmailSender{
-
-  @FlipOff
-  public void sendEmail(EmailMessage emailMessage){
-  }
-}
-```
-Feature ```sendEmail``` is always DISABLED.
+Flips provides various annotations to flip a feature. Let's have a detailed walk-through of all the annotations - 
 
 **@FlipOnEnvironmentProperty** is used to flip a feature based on the value of an environment property.
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -65,7 +79,7 @@ Feature ```sendEmail``` is enabled if the property **feature.send.email** is set
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -80,7 +94,7 @@ Feature ```sendEmail``` is enabled if the current profile is either **dev or qa*
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -95,7 +109,7 @@ Feature ```sendEmail``` is enabled if current day is either **MONDAY or TUESDAY*
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -110,7 +124,7 @@ Feature ```sendEmail``` is enabled if current datetime is equal to or greater th
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -121,11 +135,11 @@ class EmailSender{
 ```
 Feature ```sendEmail``` is enabled if the expression evaluates to TRUE.
 
-**@FlipBean** is used to flip the invocation of a method with another method.
+**@FlipBean** is used to flip the invocation of a method with another method. It is most likely to be used in conjunction with @FlipOn... annotation.
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -136,13 +150,29 @@ class EmailSender{
 ```
 will flip the invocation of ```sendEmail``` method with the one (having exactly same signature) defined in **SendGridEmailSender**.
 
+**@FlipOff** is used to flip a feature off. 
+
+**Usage**
+
+```java
+@Component
+class EmailSender{
+
+  @FlipOff
+  public void sendEmail(EmailMessage emailMessage){
+  }
+}
+```
+Feature ```sendEmail``` is always DISABLED.
+
+
 ## FAQs
 1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD environment but after a given date.  
 **Yes**, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -159,7 +189,7 @@ this will throw FeatureNotEnabledException is either of the conditions evaluate 
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -176,7 +206,7 @@ this will flip the implementation of sendEmail with the same method defined in `
 
 **Usage**
 
-```
+```java
 @Component
 class EmailSender{
 
@@ -204,7 +234,7 @@ In order to bring all Flips related annotations in effect, FlipConfiguration nee
 
 **Usage**
 
-```
+```java
 @SpringBootApplication
 @Import(FlipWebContextConfiguration.class)
 class ApplicationConfig{
@@ -219,7 +249,7 @@ Please refer [Sample Project](https://github.com/SarthakMakhija/flips-samples/bl
 8. Is there a way to create custom annotation(s) to flip a feature ?  
 **Yes**. You can create a custom annotation to fit your use case. Create a custom annotation at METHOD level which has a meta-annotation of type @FlipOnOff.
     
-```
+```java
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @FlipOnOff(value = MyCustomCondition.class)
@@ -228,7 +258,7 @@ public @interface MyCustomAnnotation {
 ```
 As a part of this annotation, specify the condition which will evaluate the result of this annotation.
 
-```
+```java
 @Component
 public class MyCustomCondition implements FlipCondition {
 
