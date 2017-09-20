@@ -257,3 +257,4 @@ Please use Github [issues](https://github.com/Feature-Flip/flips/issues) to shar
 ## Credits
 1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing his guidance.
 2. [Prateek Shah](https://github.com/shahprateek1991)
+3. [Yashica](https://github.com/yashicag)
