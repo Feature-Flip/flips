@@ -137,7 +137,7 @@ class EmailSender{
 will flip the invocation of ```sendEmail``` method with the one (having exactly same signature) defined in **SendGridEmailSender**.
 
 ## FAQs
-1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD environment but after a given date.
+1. Is there a way to combine these annotations ? Eg; I want a feature to be enabled only on PROD environment but after a given date.  
 **Yes**, these annotations can be combined. Currently, such combinations are treated as AND operations, meaning all the conditions MUST evaluate to TRUE for a feature to be enabled.
 
 **Usage**
