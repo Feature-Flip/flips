@@ -4,13 +4,9 @@ Flips is an implementation of Feature Toggles pattern for Java. [Feature Toggles
 [![Build Status](https://travis-ci.org/Feature-Flip/flips.svg?branch=master)](https://travis-ci.org/Feature-Flip/flips)
 [![Coverage Status](https://coveralls.io/repos/github/Feature-Flip/flips/badge.svg?branch=master)](https://coveralls.io/github/Feature-Flip/flips?branch=master)
 
-## Why another library for feature toggle ?
-The idea behind Flips is to let the users implement toggles with minimum configuration and coding. This library is intended to work with Java8, Spring Core / Spring MVC / Spring Boot. 
-
 ## Getting Started
-Following feature toggle is going to switch bean with same signature method to go live with feature on specific date time. 
+Following feature toggle is going to switch bean with same signature method to go live on specific date time. 
 Property allows to define different datetime specific to ENV and in ISO 8601 format. 
-
 
 ```java
 @Component
@@ -25,13 +21,16 @@ class MyBean {
 
 @Component
 class AnotherBean {
-  public List<Article> getLatestArticles(){
+
+    public List<Article> getLatestArticles(){
       // NEW logic of getting latest articles
-  }
+    }
 }
 
 ```
 
+## Why another library for feature toggle ?
+The idea behind Flips is to let the users implement toggles with minimum configuration and coding. This library is intended to work with Java8, Spring Core / Spring MVC / Spring Boot. 
 
 ## Where do I get sample project(s) ?
 Sample projects can be found [here](https://github.com/SarthakMakhija/flips-samples).
