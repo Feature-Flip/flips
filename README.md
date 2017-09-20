@@ -255,6 +255,6 @@ This funtionality is available in flips-web as a REST endpoint. You can hit **/d
 Please use Github [issues](https://github.com/Feature-Flip/flips/issues) to share feedback, feature suggestions and report issues.
 
 ## Credits
-1. A Very big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing his guidance.
+1. A big Thank you to [Sunit Parekh](https://github.com/sunitparekh/) for providing his guidance
 2. [Prateek Shah](https://github.com/shahprateek1991)
 3. [Yashica](https://github.com/yashicag)
