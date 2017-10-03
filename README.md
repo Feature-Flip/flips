@@ -1,5 +1,5 @@
 # Flips
-Flips is an implementation of Feature Toggles pattern for Java. [Feature Toggles](https://martinfowler.com/articles/feature-toggles.html) are a powerful technique, allowing teams to modify system behavior without changing the code.
+[https://dzone.com/articles/flips-feature-flip-for-java](Flips) is an implementation of Feature Toggles pattern for Java. [Feature Toggles](https://martinfowler.com/articles/feature-toggles.html) are a powerful technique, allowing teams to modify system behavior without changing the code.
 
 [![Build Status](https://travis-ci.org/Feature-Flip/flips.svg?branch=master)](https://travis-ci.org/Feature-Flip/flips)
 [![Coverage Status](https://coveralls.io/repos/github/Feature-Flip/flips/badge.svg?branch=master)](https://coveralls.io/github/Feature-Flip/flips?branch=master)
