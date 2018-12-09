@@ -59,7 +59,7 @@
     <version.aspectj>1.8.9</version.aspectj>
     <version.sl4j>1.7.25</version.sl4j>
     <version.logback>1.2.3</version.logback>
-    <version.jackson.library>2.7.5</version.jackson.library>
+    <version.jackson.library>2.8.11.1</version.jackson.library>
     <version.jsonpath>2.3.0</version.jsonpath>
   </properties>
 
