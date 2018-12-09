@@ -50,7 +50,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <version.junit>4.12</version.junit>
-    <version.spring>4.2.3.RELEASE</version.spring>
+    <version.spring>4.3.17.RELEASE</version.spring>
     <version.mockito>1.10.19</version.mockito>
     <version.powermockito.api>1.6.4</version.powermockito.api>
     <version.powermockito.junit4>1.6.4</version.powermockito.junit4>
@@ -60,7 +60,7 @@
     <version.sl4j>1.7.25</version.sl4j>
     <version.logback>1.2.3</version.logback>
     <version.jackson.library>2.7.5</version.jackson.library>
-    <version.jsonpath>0.8.1</version.jsonpath>
+    <version.jsonpath>2.3.0</version.jsonpath>
   </properties>
 
   <modules>
